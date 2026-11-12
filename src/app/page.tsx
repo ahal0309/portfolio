@@ -77,8 +77,8 @@ export default function Home() {
           </a>
 
           <nav className="hidden md:flex items-center gap-7 font-mono-code text-[13px] font-bold">
-            <a href="#skills" className="hover:underline underline-offset-4 text-[#121316]">Skills</a>
             <a href="#about" className="hover:underline underline-offset-4 text-[#121316]">About</a>
+            <a href="#skills" className="hover:underline underline-offset-4 text-[#121316]">Skills</a>
             <a href="#projects" className="hover:underline underline-offset-4 text-[#121316]">Projects</a>
             <a href="#experience" className="hover:underline underline-offset-4 text-[#121316]">Education</a>
             <a href="#faq" className="hover:underline underline-offset-4 text-[#121316]">FAQ</a>
@@ -213,7 +213,77 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Sticky Notes Section: "Stuff I'm good at." */}
+      {/* About Section: "Oh, hey." (Placed BEFORE Skills) */}
+      <section id="about" className="py-20 px-6 brutal-border border-t-0 border-l-0 border-r-0 bg-[#FFFDF8]">
+        <div className="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-[360px_1fr] gap-10 items-start">
+          {/* Left Column Graphic Window */}
+          <div className="bg-[#121316] brutal-border brutal-shadow-lg">
+            <div className="bg-[#121316] text-white px-3 py-2 flex items-center justify-between font-mono-code text-xs font-bold border-b-2 border-white/20">
+              <span>PORTRAIT_AHAL.JPG</span>
+              <div className="flex gap-1.5">
+                <span className="w-2.5 h-2.5 border border-white bg-white/20 inline-block"></span>
+                <span className="w-2.5 h-2.5 border border-white bg-white/20 inline-block"></span>
+                <span className="w-2.5 h-2.5 border border-white bg-white/20 inline-block"></span>
+              </div>
+            </div>
+            <div className="bg-[#FF6433] aspect-[1/1.15] flex flex-col items-center justify-center p-8 text-center border-4 border-[#121316]">
+              <div className="w-28 h-28 rounded-full bg-[#121316] border-4 border-white flex items-center justify-center mb-4">
+                <span className="font-heading font-extrabold text-4xl text-white">AJ</span>
+              </div>
+              <h3 className="font-heading font-extrabold text-2xl text-white">Ahal Abdul Jaleel</h3>
+              <p className="font-mono-code text-sm font-bold text-[#FFE853] mt-1">AI & ML Engineer</p>
+              <div className="mt-5 font-mono-code text-xs bg-black/30 text-white px-3 py-1.5 border border-white/40">
+                Yenepoya Institute of Tech (VTU)
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column Yellow Content Box */}
+          <div className="bg-[#FFE033] brutal-border brutal-shadow-lg p-8 md:p-10">
+            <div className="brutal-badge bg-white mb-3">BIO & PROFILE</div>
+            <h2 className="font-heading font-extrabold text-3xl sm:text-4xl text-[#121316] tracking-tight mb-4">
+              Oh, hey.
+            </h2>
+            <p className="text-base font-semibold leading-relaxed text-[#1E2026] mb-4">
+              I'm an Artificial Intelligence and Machine Learning engineering student graduating in 2027 from <strong>Yenepoya Institute of Technology / VTU, Karnataka</strong>, with an academic record of <strong>8.0 CGPA</strong>.
+            </p>
+            <p className="text-sm sm:text-base text-[#2C2F38] leading-relaxed mb-6">
+              My mission is to bridge theoretical AI research with production-grade software applications. From building full-stack smart retail apps using Gemini API and React Native to participating in international healthcare AI conferences at NIT Calicut, I love taking complex algorithms and transforming them into accessible, high-impact products.
+            </p>
+
+            {/* Stats Row */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-6">
+              <div className="bg-white border-2 border-[#121316] brutal-shadow-sm p-3.5">
+                <div className="font-heading font-extrabold text-2xl text-[#121316]">8.0</div>
+                <div className="font-mono-code text-[10px] font-bold text-[#666] uppercase">B.E. CGPA (VTU)</div>
+              </div>
+              <div className="bg-white border-2 border-[#121316] brutal-shadow-sm p-3.5">
+                <div className="font-heading font-extrabold text-2xl text-[#121316]">6+</div>
+                <div className="font-mono-code text-[10px] font-bold text-[#666] uppercase">Languages</div>
+              </div>
+              <div className="bg-white border-2 border-[#121316] brutal-shadow-sm p-3.5">
+                <div className="font-heading font-extrabold text-2xl text-[#121316]">2027</div>
+                <div className="font-mono-code text-[10px] font-bold text-[#666] uppercase">Graduation</div>
+              </div>
+              <div className="bg-white border-2 border-[#121316] brutal-shadow-sm p-3.5">
+                <div className="font-heading font-extrabold text-2xl text-[#121316]">2+</div>
+                <div className="font-mono-code text-[10px] font-bold text-[#666] uppercase">Certifications</div>
+              </div>
+            </div>
+
+            <div className="mt-8 flex flex-wrap gap-3.5">
+              <a href="#contact" className="brutal-btn brutal-btn-black">
+                Hire Me &rarr;
+              </a>
+              <a href="mailto:ahalabduljaleel8@gmail.com" className="brutal-btn brutal-btn-white">
+                ahalabduljaleel8@gmail.com
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Sticky Notes Section: "Stuff I'm good at." (Placed AFTER About) */}
       <section id="skills" className="py-20 px-6 brutal-border border-t-0 border-l-0 border-r-0 bg-[#FDFBF7]">
         <div className="max-w-[1200px] mx-auto">
           <div className="brutal-badge mb-3">CORE CAPABILITIES</div>
@@ -313,76 +383,6 @@ export default function Home() {
               <div className="inline-block self-start font-mono-code text-[11px] font-bold bg-black/40 text-white border border-white/50 px-2 py-0.5 mt-3">
                 Git &bull; Teamwork &bull; Organizing
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* About Section: "Oh, hey." */}
-      <section id="about" className="py-20 px-6 brutal-border border-t-0 border-l-0 border-r-0 bg-[#FFFDF8]">
-        <div className="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-[360px_1fr] gap-10 items-start">
-          {/* Left Column Graphic Window */}
-          <div className="bg-[#121316] brutal-border brutal-shadow-lg">
-            <div className="bg-[#121316] text-white px-3 py-2 flex items-center justify-between font-mono-code text-xs font-bold border-b-2 border-white/20">
-              <span>PORTRAIT_AHAL.JPG</span>
-              <div className="flex gap-1.5">
-                <span className="w-2.5 h-2.5 border border-white bg-white/20 inline-block"></span>
-                <span className="w-2.5 h-2.5 border border-white bg-white/20 inline-block"></span>
-                <span className="w-2.5 h-2.5 border border-white bg-white/20 inline-block"></span>
-              </div>
-            </div>
-            <div className="bg-[#FF6433] aspect-[1/1.15] flex flex-col items-center justify-center p-8 text-center border-4 border-[#121316]">
-              <div className="w-28 h-28 rounded-full bg-[#121316] border-4 border-white flex items-center justify-center mb-4">
-                <span className="font-heading font-extrabold text-4xl text-white">AJ</span>
-              </div>
-              <h3 className="font-heading font-extrabold text-2xl text-white">Ahal Abdul Jaleel</h3>
-              <p className="font-mono-code text-sm font-bold text-[#FFE853] mt-1">AI & ML Engineer</p>
-              <div className="mt-5 font-mono-code text-xs bg-black/30 text-white px-3 py-1.5 border border-white/40">
-                Yenepoya Institute of Tech (VTU)
-              </div>
-            </div>
-          </div>
-
-          {/* Right Column Yellow Content Box */}
-          <div className="bg-[#FFE033] brutal-border brutal-shadow-lg p-8 md:p-10">
-            <div className="brutal-badge bg-white mb-3">BIO & PROFILE</div>
-            <h2 className="font-heading font-extrabold text-3xl sm:text-4xl text-[#121316] tracking-tight mb-4">
-              Oh, hey.
-            </h2>
-            <p className="text-base font-semibold leading-relaxed text-[#1E2026] mb-4">
-              I'm an Artificial Intelligence and Machine Learning engineering student graduating in 2027 from <strong>Yenepoya Institute of Technology / VTU, Karnataka</strong>, with an academic record of <strong>8.0 CGPA</strong>.
-            </p>
-            <p className="text-sm sm:text-base text-[#2C2F38] leading-relaxed mb-6">
-              My mission is to bridge theoretical AI research with production-grade software applications. From building full-stack smart retail apps using Gemini API and React Native to participating in international healthcare AI conferences at NIT Calicut, I love taking complex algorithms and transforming them into accessible, high-impact products.
-            </p>
-
-            {/* Stats Row */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-6">
-              <div className="bg-white border-2 border-[#121316] brutal-shadow-sm p-3.5">
-                <div className="font-heading font-extrabold text-2xl text-[#121316]">8.0</div>
-                <div className="font-mono-code text-[10px] font-bold text-[#666] uppercase">B.E. CGPA (VTU)</div>
-              </div>
-              <div className="bg-white border-2 border-[#121316] brutal-shadow-sm p-3.5">
-                <div className="font-heading font-extrabold text-2xl text-[#121316]">6+</div>
-                <div className="font-mono-code text-[10px] font-bold text-[#666] uppercase">Languages</div>
-              </div>
-              <div className="bg-white border-2 border-[#121316] brutal-shadow-sm p-3.5">
-                <div className="font-heading font-extrabold text-2xl text-[#121316]">2027</div>
-                <div className="font-mono-code text-[10px] font-bold text-[#666] uppercase">Graduation</div>
-              </div>
-              <div className="bg-white border-2 border-[#121316] brutal-shadow-sm p-3.5">
-                <div className="font-heading font-extrabold text-2xl text-[#121316]">2+</div>
-                <div className="font-mono-code text-[10px] font-bold text-[#666] uppercase">Certifications</div>
-              </div>
-            </div>
-
-            <div className="mt-8 flex flex-wrap gap-3.5">
-              <a href="#contact" className="brutal-btn brutal-btn-black">
-                Hire Me &rarr;
-              </a>
-              <a href="mailto:ahalabduljaleel8@gmail.com" className="brutal-btn brutal-btn-white">
-                ahalabduljaleel8@gmail.com
-              </a>
             </div>
           </div>
         </div>
@@ -891,8 +891,8 @@ export default function Home() {
               Navigation
             </h4>
             <ul className="space-y-2 font-mono-code text-xs text-[#AEB2C2]">
-              <li><a href="#skills" className="hover:text-white hover:underline">Skills & Expertise</a></li>
               <li><a href="#about" className="hover:text-white hover:underline">About & CGPA</a></li>
+              <li><a href="#skills" className="hover:text-white hover:underline">Skills & Expertise</a></li>
               <li><a href="#projects" className="hover:text-white hover:underline">Supermarket AI Project</a></li>
               <li><a href="#experience" className="hover:text-white hover:underline">Education & Milestones</a></li>
               <li><a href="#contact" className="hover:text-white hover:underline">Contact</a></li>
