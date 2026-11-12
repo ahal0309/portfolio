@@ -1,26 +1,124 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --bg-cream: #FDFBF7;
+  --border-dark: #121316;
+  --yellow-bright: #FFE033;
+  --yellow-light: #FFF066;
+  --pink-retro: #FF85A2;
+  --cyan-bright: #42E8E0;
+  --green-mint: #62E89D;
+  --green-section: #3CB371;
+  --orange-retro: #FF7B39;
+  --purple-retro: #C497FF;
+  --blue-retro: #3448C5;
+  --red-rust: #D94625;
+  --dark-footer: #0D0E15;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--bg-cream);
+  color: #121316;
+  font-family: var(--font-jakarta-sans), sans-serif;
+  overflow-x: hidden;
+}
+
+/* Grid background effect */
+.grid-bg {
+  background-color: #FDFBF7;
+  background-image: 
+    linear-gradient(to right, rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* Heading & Mono styles */
+.font-heading {
+  font-family: var(--font-space-grotesk), sans-serif;
+}
+
+.font-mono-code {
+  font-family: var(--font-jetbrains-mono), monospace;
+}
+
+/* Neo-Brutalist utility classes */
+.brutal-border {
+  border: 2.5px solid #121316;
+}
+
+.brutal-shadow {
+  box-shadow: 4px 4px 0px #121316;
+}
+
+.brutal-shadow-lg {
+  box-shadow: 6px 6px 0px #121316;
+}
+
+.brutal-shadow-sm {
+  box-shadow: 2px 2px 0px #121316;
+}
+
+.brutal-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--yellow-bright);
+  border: 2.5px solid #121316;
+  box-shadow: 4px 4px 0px #121316;
+  padding: 10px 22px;
+  font-family: var(--font-space-grotesk), sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  color: #121316;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.brutal-btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px #121316;
+}
+
+.brutal-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px #121316;
+}
+
+.brutal-btn-white {
+  background-color: #FFFFFF;
+}
+
+.brutal-btn-black {
+  background-color: #121316;
+  color: #FFFFFF;
+  box-shadow: 4px 4px 0px var(--yellow-bright);
+}
+
+.brutal-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  border: 2px solid #121316;
+  background-color: var(--yellow-bright);
+  box-shadow: 2px 2px 0px #121316;
+  letter-spacing: 0.06em;
+}
+
+/* Pulsing dot */
+@keyframes pulseGlow {
+  0% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(0.85); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.status-dot-pulse {
+  animation: pulseGlow 1.6s infinite ease-in-out;
 }
