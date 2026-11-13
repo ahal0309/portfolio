@@ -446,19 +446,21 @@ export default function Home() {
               href="https://github.com/ahal0309" 
               target="_blank" 
               rel="noreferrer"
-              className="inline-flex items-center gap-2 bg-white border-2 border-[#121316] px-3.5 py-2 font-mono-code text-xs font-bold text-[#121316] brutal-shadow-sm hover:bg-[#FFFDE6] transition-all"
+              aria-label="GitHub Profile"
+              title="GitHub Profile"
+              className="inline-flex items-center justify-center bg-white border-2 border-[#121316] w-10 h-10 text-[#121316] brutal-shadow-sm hover:bg-[#FFFDE6] transition-all hover:scale-105"
             >
-              <GithubIcon className="w-3.5 h-3.5" />
-              github.com/ahal0309
+              <GithubIcon className="w-5 h-5" />
             </a>
             <a 
               href="https://www.linkedin.com/in/ahal-abdul-jaleel" 
               target="_blank" 
               rel="noreferrer"
-              className="inline-flex items-center gap-2 bg-white border-2 border-[#121316] px-3.5 py-2 font-mono-code text-xs font-bold text-[#121316] brutal-shadow-sm hover:bg-[#FFFDE6] transition-all"
+              aria-label="LinkedIn Profile"
+              title="LinkedIn Profile"
+              className="inline-flex items-center justify-center bg-white border-2 border-[#121316] w-10 h-10 text-[#121316] brutal-shadow-sm hover:bg-[#FFFDE6] transition-all hover:scale-105"
             >
-              <LinkedinIcon className="w-3.5 h-3.5" />
-              linkedin.com/in/ahal-abdul-jaleel
+              <LinkedinIcon className="w-5 h-5" />
             </a>
           </motion.div>
 
