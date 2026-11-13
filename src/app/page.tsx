@@ -51,6 +51,46 @@ export default function Home() {
     message: "",
   });
 
+  const [copiedEmail, setCopiedEmail] = useState(false);
+  const [terminalInput, setTerminalInput] = useState("");
+  const [terminalOutput, setTerminalOutput] = useState<string[]>([
+    "Antigravity CLI v2.4 initialized. Type 'help' for available commands.",
+  ]);
+
+  const handleTerminalSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const cmd = terminalInput.trim().toLowerCase();
+    if (!cmd) return;
+
+    let response = "";
+    if (cmd === "help") {
+      response = "Available: 'skills', 'projects', 'education', 'contact', 'clear'";
+    } else if (cmd === "skills") {
+      response = "ML, NLP, Generative AI (Gemini), Python, C++, Julia, R, Scikit-learn, React Native, MongoDB";
+    } else if (cmd === "projects") {
+      response = "Flagship: AI Dual Interface System for Supermarket • Client Deployments: Chai Days, Easy Support, Manasu, Afana's Angel";
+    } else if (cmd === "education") {
+      response = "B.E. in AI & ML @ Yenepoya Institute of Tech (VTU), Karnataka (CGPA: 8.0, 2027)";
+    } else if (cmd === "contact") {
+      response = "Email: ahalabduljaleel8@gmail.com | Phone: +91 8547735911 | GitHub: ahal0309";
+    } else if (cmd === "clear") {
+      setTerminalOutput([]);
+      setTerminalInput("");
+      return;
+    } else {
+      response = `Command '${cmd}' not recognized. Type 'help' for info.`;
+    }
+
+    setTerminalOutput((prev) => [...prev, `$ ${terminalInput}`, response]);
+    setTerminalInput("");
+  };
+
+  const copyEmailToClipboard = () => {
+    navigator.clipboard.writeText("ahalabduljaleel8@gmail.com");
+    setCopiedEmail(true);
+    setTimeout(() => setCopiedEmail(false), 2000);
+  };
+
   // Simulated retro OS / AI system boot sequence
   React.useEffect(() => {
     const stages = [
@@ -1380,46 +1420,167 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-[#0D0E15] text-white py-16 px-6">
-        <div className="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 pb-10 border-b border-[#282A3A]">
-          <div>
-            <h3 className="font-heading font-extrabold text-2xl mb-2 text-white">Ahal Abdul Jaleel</h3>
-            <p className="text-xs sm:text-sm text-[#9A9EA6] leading-relaxed max-w-sm">
-              Enthusiastic AI & ML Engineer dedicated to turning data and advanced machine learning models into intuitive, impactful applications.
-            </p>
+      {/* Innovative & Interactive Neo-Brutalist Footer */}
+      <footer className="bg-[#0D0E15] text-white pt-20 pb-12 px-6 border-t-4 border-[#121316] relative overflow-hidden">
+        {/* Subtle accent glow */}
+        <div className="absolute top-0 right-1/4 w-96 h-96 bg-[#3448C5]/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div className="max-w-[1240px] mx-auto">
+          {/* Top Marquee-Style Banner */}
+          <div className="bg-[#FFE033] text-[#121316] border-2 border-[#121316] brutal-shadow p-3 mb-14 flex items-center justify-between flex-wrap gap-3">
+            <div className="flex items-center gap-3">
+              <span className="w-3 h-3 rounded-full bg-[#D94625] animate-ping inline-block"></span>
+              <span className="font-mono-code text-xs sm:text-sm font-extrabold uppercase tracking-wider">
+                LOOKING FOR AN ENTRY-LEVEL AI / ML ENGINEER? LET'S CONNECT!
+              </span>
+            </div>
+            <a 
+              href="#contact" 
+              className="font-mono-code text-xs font-black uppercase bg-[#121316] text-white px-3 py-1 hover:bg-[#3448C5] transition-colors"
+            >
+              Start Conversation &rarr;
+            </a>
           </div>
 
-          <div>
-            <h4 className="font-mono-code text-xs uppercase tracking-wider text-[#FFE033] mb-4 font-bold">
-              Navigation
-            </h4>
-            <ul className="space-y-2 font-mono-code text-xs text-[#AEB2C2]">
-              <li><a href="#about" className="hover:text-white hover:underline">About & CGPA</a></li>
-              <li><a href="#skills" className="hover:text-white hover:underline">Skills & Expertise</a></li>
-              <li><a href="#projects" className="hover:text-white hover:underline">Supermarket AI Project</a></li>
-              <li><a href="#client-work" className="hover:text-white hover:underline">Client Work</a></li>
-              <li><a href="#experience" className="hover:text-white hover:underline">Education & Milestones</a></li>
-              <li><a href="#contact" className="hover:text-white hover:underline">Contact</a></li>
-            </ul>
+          {/* Main Footer Interactive Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 pb-14 border-b border-[#222533]">
+            {/* Col 1: Brand & One-Click Copy Badge (5 cols) */}
+            <div className="lg:col-span-5 flex flex-col justify-between">
+              <div>
+                <div className="flex items-center gap-2.5 mb-4">
+                  <div className="w-8 h-8 bg-[#FFE033] border-2 border-white flex items-center justify-center font-bold text-base text-[#121316] font-heading shadow-[2px_2px_0px_#FFF]">
+                    +
+                  </div>
+                  <h3 className="font-heading font-extrabold text-2xl sm:text-3xl text-white">
+                    Ahal Abdul Jaleel
+                  </h3>
+                </div>
+
+                <p className="text-sm text-[#9A9EA6] leading-relaxed max-w-md mb-6">
+                  Artificial Intelligence & Machine Learning Engineer from <strong>VTU / Yenepoya Institute of Tech</strong>. Passionate about turning complex models into impactful products.
+                </p>
+
+                {/* Interactive Copy Email Pill */}
+                <div className="bg-[#171922] border-2 border-[#2B2F42] p-3 inline-flex items-center justify-between gap-4 max-w-sm w-full brutal-shadow-sm">
+                  <div className="truncate">
+                    <span className="block font-mono-code text-[10px] text-[#6C7086] uppercase font-bold">Direct Email</span>
+                    <span className="font-mono-code text-xs text-[#FFE033] font-bold">ahalabduljaleel8@gmail.com</span>
+                  </div>
+                  <button
+                    onClick={copyEmailToClipboard}
+                    className="font-mono-code text-[11px] font-extrabold px-3 py-1.5 bg-[#FFE033] text-[#121316] border border-[#121316] hover:bg-white transition-all shrink-0"
+                  >
+                    {copiedEmail ? "COPIED! ✓" : "COPY"}
+                  </button>
+                </div>
+              </div>
+
+              {/* Status Badge */}
+              <div className="mt-8 flex items-center gap-2.5">
+                <span className="w-2.5 h-2.5 rounded-full bg-[#00FF88] status-dot-pulse"></span>
+                <span className="font-mono-code text-xs font-bold text-[#A6ADB8]">
+                  Actively Available for Opportunities (On-site & Remote)
+                </span>
+              </div>
+            </div>
+
+            {/* Col 2: Interactive Terminal Window (4 cols) */}
+            <div className="lg:col-span-4 bg-[#141620] border-2 border-[#2C3044] brutal-shadow overflow-hidden flex flex-col justify-between min-h-[260px]">
+              {/* Terminal Header */}
+              <div className="bg-[#1C1F2E] px-3.5 py-2 border-b border-[#2C3044] flex items-center justify-between font-mono-code text-[11px] text-[#A6ADB8] font-bold">
+                <span className="text-[#42E8E0]">TERMINAL_SHELL // v2.4</span>
+                <div className="flex gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-[#FF5F56] inline-block"></span>
+                  <span className="w-2 h-2 rounded-full bg-[#FFBD2E] inline-block"></span>
+                  <span className="w-2 h-2 rounded-full bg-[#27C93F] inline-block"></span>
+                </div>
+              </div>
+
+              {/* Terminal Logs */}
+              <div className="p-3.5 flex-1 font-mono-code text-xs overflow-y-auto max-h-48 space-y-1.5 text-[#CBD5E1]">
+                {terminalOutput.map((line, i) => (
+                  <div key={i} className={line.startsWith("$") ? "text-[#FFE033]" : "text-[#94A3B8]"}>
+                    {line}
+                  </div>
+                ))}
+              </div>
+
+              {/* Terminal Interactive Input */}
+              <form onSubmit={handleTerminalSubmit} className="p-2.5 bg-[#0F111A] border-t border-[#2C3044] flex items-center gap-2">
+                <span className="font-mono-code text-xs text-[#00FF88] font-bold">&gt;</span>
+                <input
+                  type="text"
+                  value={terminalInput}
+                  onChange={(e) => setTerminalInput(e.target.value)}
+                  placeholder="type 'help', 'skills'..."
+                  className="w-full bg-transparent font-mono-code text-xs text-white outline-none placeholder:text-[#555]"
+                />
+                <button type="submit" className="font-mono-code text-[10px] font-bold uppercase text-[#FFE033] hover:underline">
+                  RUN
+                </button>
+              </form>
+            </div>
+
+            {/* Col 3: Quick Navigation & Socials (3 cols) */}
+            <div className="lg:col-span-3 flex flex-col justify-between space-y-6">
+              <div>
+                <h4 className="font-mono-code text-xs uppercase tracking-wider text-[#FFE033] mb-3 font-extrabold flex items-center gap-2">
+                  <span>//</span> Quick Links
+                </h4>
+                <ul className="space-y-1.5 font-mono-code text-xs text-[#A6ADB8]">
+                  <li><a href="#about" className="hover:text-white hover:underline flex items-center gap-1.5">&rarr; About & CGPA</a></li>
+                  <li><a href="#skills" className="hover:text-white hover:underline flex items-center gap-1.5">&rarr; Skills & Toolkits</a></li>
+                  <li><a href="#projects" className="hover:text-white hover:underline flex items-center gap-1.5">&rarr; Supermarket AI</a></li>
+                  <li><a href="#client-work" className="hover:text-white hover:underline flex items-center gap-1.5">&rarr; Client Deployments</a></li>
+                  <li><a href="#experience" className="hover:text-white hover:underline flex items-center gap-1.5">&rarr; Education & Milestones</a></li>
+                  <li><a href="#contact" className="hover:text-white hover:underline flex items-center gap-1.5">&rarr; Contact Form</a></li>
+                </ul>
+              </div>
+
+              <div>
+                <h4 className="font-mono-code text-xs uppercase tracking-wider text-[#FF85A2] mb-3 font-extrabold flex items-center gap-2">
+                  <span>//</span> Connect Channels
+                </h4>
+                <div className="flex flex-col gap-2">
+                  <a 
+                    href="https://www.linkedin.com/in/ahal-abdul-jaleel" 
+                    target="_blank" 
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-2 bg-[#171924] border border-[#2B2F42] px-3 py-1.5 font-mono-code text-xs font-bold text-white hover:bg-[#FFE033] hover:text-[#121316] hover:border-[#121316] transition-all"
+                  >
+                    <LinkedinIcon className="w-3.5 h-3.5" />
+                    LinkedIn Profile
+                  </a>
+                  <a 
+                    href="https://github.com/ahal0309" 
+                    target="_blank" 
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-2 bg-[#171924] border border-[#2B2F42] px-3 py-1.5 font-mono-code text-xs font-bold text-white hover:bg-[#FFE033] hover:text-[#121316] hover:border-[#121316] transition-all"
+                  >
+                    <GithubIcon className="w-3.5 h-3.5" />
+                    GitHub Profile
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
 
-          <div>
-            <h4 className="font-mono-code text-xs uppercase tracking-wider text-[#FFE033] mb-4 font-bold">
-              Direct Contact
-            </h4>
-            <ul className="space-y-2 font-mono-code text-xs text-[#AEB2C2]">
-              <li><a href="mailto:ahalabduljaleel8@gmail.com" className="hover:text-white hover:underline">ahalabduljaleel8@gmail.com</a></li>
-              <li><a href="tel:+918547735911" className="hover:text-white hover:underline">+91 8547735911</a></li>
-              <li><a href="https://www.linkedin.com/in/ahal-abdul-jaleel" target="_blank" rel="noreferrer" className="hover:text-white hover:underline">LinkedIn Profile</a></li>
-              <li><a href="https://github.com/ahal0309" target="_blank" rel="noreferrer" className="hover:text-white hover:underline">GitHub Profile</a></li>
-            </ul>
-          </div>
-        </div>
+          {/* Bottom Bar with Back to Top */}
+          <div className="pt-8 flex flex-col sm:flex-row items-center justify-between font-mono-code text-xs text-[#6C7086] gap-4">
+            <div className="flex items-center gap-3">
+              <span>&copy; 2026 Ahal Abdul Jaleel.</span>
+              <span className="hidden sm:inline">&bull;</span>
+              <span>All rights reserved.</span>
+            </div>
 
-        <div className="max-w-[1200px] mx-auto pt-6 flex flex-col sm:flex-row items-center justify-between font-mono-code text-xs text-[#6C7086] gap-3">
-          <div>&copy; 2026 Ahal Abdul Jaleel. All rights reserved.</div>
-          <div>Crafted with Neo-Brutalist Architecture &bull; Next.js & React</div>
+            <button
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              className="inline-flex items-center gap-2 bg-[#1A1C29] border border-[#2D3146] px-3 py-1.5 text-xs text-[#FFE033] hover:text-white hover:border-[#FFE033] transition-all"
+            >
+              <span>Back to Top</span>
+              <span>&uarr;</span>
+            </button>
+          </div>
         </div>
       </footer>
     </main>
