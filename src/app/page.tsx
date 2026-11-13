@@ -217,8 +217,8 @@ export default function Home() {
       <section id="about" className="py-20 px-6 brutal-border border-t-0 border-l-0 border-r-0 bg-[#FFFDF8]">
         <div className="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-[360px_1fr] gap-10 items-start">
           {/* Left Column Graphic Window */}
-          <div className="bg-[#121316] brutal-border brutal-shadow-lg">
-            <div className="bg-[#121316] text-white px-3 py-2 flex items-center justify-between font-mono-code text-xs font-bold border-b-2 border-white/20">
+          <div className="bg-[#121316] brutal-border brutal-shadow-lg overflow-hidden">
+            <div className="bg-[#121316] text-white px-3.5 py-2 flex items-center justify-between font-mono-code text-xs font-bold border-b-2 border-white/20">
               <span>PORTRAIT_AHAL.JPG</span>
               <div className="flex gap-1.5">
                 <span className="w-2.5 h-2.5 border border-white bg-white/20 inline-block"></span>
@@ -226,14 +226,19 @@ export default function Home() {
                 <span className="w-2.5 h-2.5 border border-white bg-white/20 inline-block"></span>
               </div>
             </div>
-            <div className="bg-[#FF6433] aspect-[1/1.15] flex flex-col items-center justify-center p-8 text-center border-4 border-[#121316]">
-              <div className="w-28 h-28 rounded-full bg-[#121316] border-4 border-white flex items-center justify-center mb-4">
-                <span className="font-heading font-extrabold text-4xl text-white">AJ</span>
-              </div>
-              <h3 className="font-heading font-extrabold text-2xl text-white">Ahal Abdul Jaleel</h3>
-              <p className="font-mono-code text-sm font-bold text-[#FFE853] mt-1">AI & ML Engineer</p>
-              <div className="mt-5 font-mono-code text-xs bg-black/30 text-white px-3 py-1.5 border border-white/40">
-                Yenepoya Institute of Tech (VTU)
+            <div className="relative aspect-[3/4] w-full bg-[#121316] overflow-hidden group">
+              <img
+                src="/portrait.jpg"
+                alt="Ahal Abdul Jaleel"
+                className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                loading="eager"
+              />
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent p-5 pt-12 text-white">
+                <h3 className="font-heading font-extrabold text-xl text-white">Ahal Abdul Jaleel</h3>
+                <p className="font-mono-code text-xs font-bold text-[#FFE033] mt-0.5">AI & ML Engineer</p>
+                <div className="mt-2.5 inline-block font-mono-code text-[11px] bg-black/60 backdrop-blur-sm text-white px-2.5 py-1 border border-white/30">
+                  Yenepoya Institute of Tech (VTU)
+                </div>
               </div>
             </div>
           </div>
