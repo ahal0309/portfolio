@@ -38,6 +38,237 @@ const neoSpring = {
   mass: 0.8,
 };
 
+// Interactive Canvas Component for Hero Background (AI Neural Constellation + Brutalist Matrix)
+function HeroInteractiveBackground() {
+  const canvasRef = React.useRef<HTMLCanvasElement | null>(null);
+
+  React.useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    let animationFrameId: number;
+    let width = (canvas.width = canvas.parentElement?.offsetWidth || window.innerWidth);
+    let height = (canvas.height = canvas.parentElement?.offsetHeight || 600);
+
+    const handleResize = () => {
+      if (!canvas || !canvas.parentElement) return;
+      width = canvas.width = canvas.parentElement.offsetWidth;
+      height = canvas.height = canvas.parentElement.offsetHeight;
+    };
+    window.addEventListener("resize", handleResize);
+
+    // Track mouse with smoothing
+    const mouse = { x: -1000, y: -1000, targetX: -1000, targetY: -1000, active: false };
+
+    const handleMouseMove = (e: MouseEvent) => {
+      const rect = canvas.getBoundingClientRect();
+      mouse.targetX = e.clientX - rect.left;
+      mouse.targetY = e.clientY - rect.top;
+      mouse.active = true;
+    };
+
+    const handleMouseLeave = () => {
+      mouse.active = false;
+      mouse.targetX = -1000;
+      mouse.targetY = -1000;
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    document.addEventListener("mouseleave", handleMouseLeave);
+
+    // Nodes representing AI tokens, weights & brutalist matrix points
+    interface Node {
+      x: number;
+      y: number;
+      vx: number;
+      vy: number;
+      baseRadius: number;
+      kind: "dot" | "cross" | "node";
+      color: string;
+      label?: string;
+    }
+
+    const techTags = ["GPT", "PYTORCH", "NLP", "YOLO", "FASTAPI", "CNN", "LLM", "AGENT", "TENSOR", "GEMINI"];
+    const colors = ["#121316", "#3448C5", "#FF5C35", "#16A34A", "#121316"];
+    
+    // Create ~38 nodes
+    const nodeCount = 36;
+    const nodes: Node[] = [];
+
+    for (let i = 0; i < nodeCount; i++) {
+      const kind = i % 7 === 0 ? "cross" : i % 3 === 0 ? "node" : "dot";
+      nodes.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 0.55,
+        vy: (Math.random() - 0.5) * 0.55,
+        baseRadius: kind === "node" ? 4.5 : 2.5,
+        kind,
+        color: colors[i % colors.length],
+        label: i < techTags.length ? techTags[i] : undefined,
+      });
+    }
+
+    const render = () => {
+      ctx.clearRect(0, 0, width, height);
+
+      // Smooth mouse movement
+      mouse.x += (mouse.targetX - mouse.x) * 0.15;
+      mouse.y += (mouse.targetY - mouse.y) * 0.15;
+
+      // Update node positions
+      for (let i = 0; i < nodes.length; i++) {
+        const n = nodes[i];
+        n.x += n.vx;
+        n.y += n.vy;
+
+        // Bounce off canvas boundaries
+        if (n.x < 10) { n.x = 10; n.vx *= -1; }
+        if (n.x > width - 10) { n.x = width - 10; n.vx *= -1; }
+        if (n.y < 10) { n.y = 10; n.vy *= -1; }
+        if (n.y > height - 10) { n.y = height - 10; n.vy *= -1; }
+
+        // Cursor magnetic gravity / avoidance repulsion
+        if (mouse.active) {
+          const dx = n.x - mouse.x;
+          const dy = n.y - mouse.y;
+          const dist = Math.hypot(dx, dy);
+          const maxDist = 170;
+          if (dist < maxDist && dist > 0) {
+            const force = (1 - dist / maxDist) * 1.5;
+            n.x += (dx / dist) * force * 1.8;
+            n.y += (dy / dist) * force * 1.8;
+          }
+        }
+      }
+
+      // Draw connections between nearby nodes (Neural Synapses)
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+          const n1 = nodes[i];
+          const n2 = nodes[j];
+          const dx = n1.x - n2.x;
+          const dy = n1.y - n2.y;
+          const dist = Math.hypot(dx, dy);
+          const connectDist = 135;
+
+          if (dist < connectDist) {
+            const alpha = (1 - dist / connectDist) * 0.35;
+            ctx.beginPath();
+            ctx.moveTo(n1.x, n1.y);
+            ctx.lineTo(n2.x, n2.y);
+            ctx.strokeStyle = `rgba(18, 19, 22, ${alpha})`;
+            ctx.lineWidth = 1;
+            ctx.stroke();
+          }
+        }
+
+        // Draw line from cursor to nearby nodes with electric neo accent
+        if (mouse.active) {
+          const dx = nodes[i].x - mouse.x;
+          const dy = nodes[i].y - mouse.y;
+          const dist = Math.hypot(dx, dy);
+          if (dist < 160) {
+            const alpha = (1 - dist / 160) * 0.75;
+            ctx.beginPath();
+            ctx.moveTo(mouse.x, mouse.y);
+            ctx.lineTo(nodes[i].x, nodes[i].y);
+            ctx.strokeStyle = `rgba(52, 72, 197, ${alpha})`;
+            ctx.lineWidth = 1.4;
+            ctx.setLineDash([4, 4]);
+            ctx.stroke();
+            ctx.setLineDash([]);
+          }
+        }
+      }
+
+      // Draw cursor interactive beacon ring when active
+      if (mouse.active && mouse.x > 0 && mouse.y > 0) {
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(mouse.x, mouse.y, 24, 0, Math.PI * 2);
+        ctx.strokeStyle = "rgba(255, 92, 53, 0.45)";
+        ctx.lineWidth = 2;
+        ctx.setLineDash([3, 3]);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(mouse.x, mouse.y, 4, 0, Math.PI * 2);
+        ctx.fillStyle = "#FF5C35";
+        ctx.fill();
+        ctx.restore();
+      }
+
+      // Draw nodes
+      for (let i = 0; i < nodes.length; i++) {
+        const n = nodes[i];
+
+        if (n.kind === "cross") {
+          // Neo-brutalist '+' marker
+          ctx.save();
+          ctx.strokeStyle = n.color;
+          ctx.lineWidth = 2;
+          const size = 5;
+          ctx.beginPath();
+          ctx.moveTo(n.x - size, n.y);
+          ctx.lineTo(n.x + size, n.y);
+          ctx.moveTo(n.x, n.y - size);
+          ctx.lineTo(n.x, n.y + size);
+          ctx.stroke();
+          ctx.restore();
+        } else if (n.kind === "node") {
+          // Neural Node with border
+          ctx.save();
+          ctx.beginPath();
+          ctx.arc(n.x, n.y, n.baseRadius, 0, Math.PI * 2);
+          ctx.fillStyle = "#FFE033";
+          ctx.fill();
+          ctx.lineWidth = 1.8;
+          ctx.strokeStyle = "#121316";
+          ctx.stroke();
+
+          // Render micro tag for AI nodes
+          if (n.label) {
+            ctx.font = "bold 9px 'Courier New', monospace";
+            ctx.fillStyle = "#121316";
+            ctx.fillText(n.label, n.x + 8, n.y + 3);
+          }
+          ctx.restore();
+        } else {
+          // Simple matrix dot
+          ctx.save();
+          ctx.beginPath();
+          ctx.arc(n.x, n.y, n.baseRadius, 0, Math.PI * 2);
+          ctx.fillStyle = "rgba(18, 19, 22, 0.55)";
+          ctx.fill();
+          ctx.restore();
+        }
+      }
+
+      animationFrameId = requestAnimationFrame(render);
+    };
+
+    render();
+
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseleave", handleMouseLeave);
+    };
+  }, []);
+
+  return (
+    <canvas 
+      ref={canvasRef} 
+      className="absolute inset-0 w-full h-full pointer-events-none z-0 opacity-80" 
+      aria-hidden="true"
+    />
+  );
+}
+
 export default function Home() {
   const [loading, setLoading] = useState(true);
   const [loadProgress, setLoadProgress] = useState(0);
@@ -282,8 +513,17 @@ export default function Home() {
       </header>
 
       {/* Hero Section */}
-      <section className="brutal-border border-t-0 border-l-0 border-r-0 py-16 md:py-24 px-6 bg-[#FAF8F2]">
-        <div className="max-w-[1200px] mx-auto">
+      <section className="brutal-border border-t-0 border-l-0 border-r-0 py-16 md:py-24 px-6 bg-[#FAF8F2] relative overflow-hidden">
+        {/* Interactive Neural Network & Particle Mesh Background */}
+        <HeroInteractiveBackground />
+
+        {/* Ambient Retro Grid Pattern Accent */}
+        <div 
+          className="absolute inset-0 pointer-events-none opacity-[0.035] bg-[radial-gradient(#121316_1px,transparent_1px)] [background-size:20px_20px]" 
+          aria-hidden="true"
+        />
+
+        <div className="max-w-[1200px] mx-auto relative z-10">
           <motion.div 
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
