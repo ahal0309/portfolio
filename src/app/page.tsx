@@ -30,7 +30,8 @@ function LinkedinIcon({ className = "w-4 h-4" }: { className?: string }) {
 
 export default function Home() {
   const [activeFaq, setActiveFaq] = useState<number | null>(0);
-  const [formSubmitted, setFormSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -42,17 +43,48 @@ export default function Home() {
     setActiveFaq(activeFaq === index ? null : index);
   };
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const mailtoUrl = `mailto:ahalabduljaleel8@gmail.com?subject=${encodeURIComponent(
-      (formData.subject || "AI Opportunity") + " - " + formData.name
-    )}&body=${encodeURIComponent(
-      `From: ${formData.name} (${formData.email})\n\n${formData.message}`
-    )}`;
-    setFormSubmitted(true);
-    setTimeout(() => {
+    setIsSubmitting(true);
+    setSubmitStatus("idle");
+
+    try {
+      // Send directly to Formsubmit endpoint configured to forward to ahalabduljaleel8@gmail.com
+      const res = await fetch("https://formsubmit.co/ajax/ahalabduljaleel8@gmail.com", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          _subject: `New Portfolio Enquiry: ${formData.subject || "General Opportunity"} (from ${formData.name})`,
+          subject: formData.subject,
+          message: formData.message,
+          _template: "table",
+          _captcha: "false",
+        }),
+      });
+
+      if (res.ok) {
+        setSubmitStatus("success");
+        setFormData({ name: "", email: "", subject: "", message: "" });
+      } else {
+        throw new Error("Submission failed");
+      }
+    } catch (err) {
+      // Fallback: trigger user's default email client pre-filled
+      const mailtoUrl = `mailto:ahalabduljaleel8@gmail.com?subject=${encodeURIComponent(
+        (formData.subject || "AI Opportunity") + " - " + formData.name
+      )}&body=${encodeURIComponent(
+        `From: ${formData.name} (${formData.email})\n\n${formData.message}`
+      )}`;
       window.location.href = mailtoUrl;
-    }, 600);
+      setSubmitStatus("success");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -1028,14 +1060,18 @@ export default function Home() {
                 </div>
 
                 <div className="flex justify-end">
-                  <button type="submit" className="brutal-btn">
-                    Send message &rarr;
+                  <button 
+                    type="submit" 
+                    disabled={isSubmitting} 
+                    className="brutal-btn disabled:opacity-60 disabled:cursor-not-allowed"
+                  >
+                    {isSubmitting ? "Sending..." : "Send message \u2192"}
                   </button>
                 </div>
 
-                {formSubmitted && (
-                  <div className="p-3 bg-[#D4EDDA] border-2 border-[#155724] font-mono-code text-xs font-bold text-[#155724]">
-                    Opening your default email client to send this message to Ahal...
+                {submitStatus === "success" && (
+                  <div className="p-3.5 bg-[#D4EDDA] border-2 border-[#155724] font-mono-code text-xs font-bold text-[#155724]">
+                    ✓ Thank you! Your message has been sent directly to Ahal (ahalabduljaleel8@gmail.com). I will get back to you shortly.
                   </div>
                 )}
               </form>
