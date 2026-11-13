@@ -51,6 +51,12 @@ export default function Home() {
     message: "",
   });
 
+  const [selectedCert, setSelectedCert] = useState<{
+    title: string;
+    issuer: string;
+    date: string;
+    img: string;
+  } | null>(null);
   const [copiedEmail, setCopiedEmail] = useState(false);
   const [terminalInput, setTerminalInput] = useState("");
   const [terminalOutput, setTerminalOutput] = useState<string[]>([
@@ -263,6 +269,7 @@ export default function Home() {
             <a href="#projects" className="hover:underline underline-offset-4 text-[#121316]">Projects</a>
             <a href="#client-work" className="hover:underline underline-offset-4 text-[#121316]">Client Work</a>
             <a href="#experience" className="hover:underline underline-offset-4 text-[#121316]">Education</a>
+            <a href="#certificates" className="hover:underline underline-offset-4 text-[#121316]">Certificates</a>
             <a href="#faq" className="hover:underline underline-offset-4 text-[#121316]">FAQ</a>
           </nav>
 
@@ -1088,6 +1095,206 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Verified Certificates & Credentials Showcase (Placed AFTER Education) */}
+      <section id="certificates" className="py-20 px-6 brutal-border border-t-0 border-l-0 border-r-0 bg-[#FFFDF5]">
+        <div className="max-w-[1240px] mx-auto">
+          <motion.div 
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4 }}
+            className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10"
+          >
+            <div>
+              <div className="brutal-badge mb-3 bg-[#FFE033]">OFFICIAL CREDENTIALS</div>
+              <h2 className="font-heading font-extrabold text-3xl sm:text-5xl text-[#121316] tracking-tight">
+                Certifications & Badges.
+              </h2>
+              <p className="text-sm sm:text-base text-[#555] mt-2 max-w-2xl leading-relaxed">
+                Click any certificate to expand in high-resolution preview. Verified certifications from Microsoft, IBM, IIT Bombay, MongoDB, Deloitte, and Great Learning.
+              </p>
+            </div>
+            <div className="font-mono-code text-xs font-bold text-[#888] bg-white border-2 border-[#121316] px-3.5 py-2 brutal-shadow-sm self-start sm:self-auto">
+              8 Verified Certifications
+            </div>
+          </motion.div>
+
+          {/* Certificate Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              {
+                title: "Azure Fundamentals",
+                issuer: "Microsoft Certiport",
+                date: "May 2025",
+                tag: "CLOUD & INFRA",
+                img: "/cert-azure.png",
+                badgeBg: "bg-[#42E8E0]",
+              },
+              {
+                title: "Rapid Development for AI Services",
+                issuer: "IBM Skills Network",
+                date: "Issued via Etrain",
+                tag: "ARTIFICIAL INTELLIGENCE",
+                img: "/cert-ibm-ai.png",
+                badgeBg: "bg-[#FFE033]",
+              },
+              {
+                title: "Cyber Job Simulation",
+                issuer: "Deloitte / Forage",
+                date: "October 2025",
+                tag: "CYBER SECURITY",
+                img: "/cert-deloitte.png",
+                badgeBg: "bg-[#FF85A2]",
+              },
+              {
+                title: "MongoDB CRUD Operations",
+                issuer: "MongoDB University",
+                date: "April 2025",
+                tag: "DATABASE SYSTEMS",
+                img: "/cert-mongodb.png",
+                badgeBg: "bg-[#62E89D]",
+              },
+              {
+                title: "R Test Certification",
+                issuer: "IIT Bombay (Spoken Tutorial)",
+                date: "Dec 2024",
+                tag: "DATA SCIENCE",
+                img: "/cert-iitb-r.png",
+                badgeBg: "bg-[#C497FF]",
+              },
+              {
+                title: "Git Version Control",
+                issuer: "IIT Bombay (Spoken Tutorial)",
+                date: "May 2025",
+                tag: "DEV TOOLING",
+                img: "/cert-iitb-git.png",
+                badgeBg: "bg-[#FF7B39] text-white",
+              },
+              {
+                title: "Linux Systems & Test",
+                issuer: "IIT Bombay & EduPyramids",
+                date: "Nov 2025",
+                tag: "OPERATING SYSTEMS",
+                img: "/cert-iitb-linux.png",
+                badgeBg: "bg-[#FFE033]",
+              },
+              {
+                title: "Data Science & AI",
+                issuer: "Great Learning Academy",
+                date: "Verified Credential",
+                tag: "MACHINE LEARNING",
+                img: "/cert-greatlearning.png",
+                badgeBg: "bg-[#42E8E0]",
+              },
+            ].map((cert, idx) => (
+              <motion.div
+                key={cert.title}
+                initial={{ opacity: 0, y: 35, scale: 0.95 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ ...neoSpring, delay: idx * 0.08 }}
+                onClick={() => setSelectedCert(cert)}
+                className="bg-white brutal-border brutal-shadow hover:-translate-y-2 hover:shadow-[6px_6px_0px_#121316] transition-all cursor-pointer flex flex-col justify-between overflow-hidden group"
+              >
+                <div>
+                  {/* Retro Window Header */}
+                  <div className="bg-[#121316] text-white px-3 py-1.5 flex items-center justify-between font-mono-code text-[11px] font-bold border-b-2 border-[#121316]">
+                    <span className="truncate pr-2 text-[#FFE033]">{cert.tag}</span>
+                    <span className="text-[10px] text-[#BAC2DE] underline">ZOOM</span>
+                  </div>
+
+                  {/* Certificate Image Preview */}
+                  <div className="relative aspect-[4/3] w-full bg-[#EFEFEF] overflow-hidden border-b-2 border-[#121316]">
+                    <img
+                      src={cert.img}
+                      alt={cert.title}
+                      className="w-full h-full object-cover object-top transition-transform duration-300 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
+                      <span className="opacity-0 group-hover:opacity-100 bg-[#121316] text-white text-xs font-mono-code font-bold px-2.5 py-1 border border-white transition-opacity">
+                        Click to Preview
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Text Details */}
+                  <div className="p-4">
+                    <h4 className="font-heading font-extrabold text-base text-[#121316] leading-snug">
+                      {cert.title}
+                    </h4>
+                    <p className="font-mono-code text-xs text-[#555] font-semibold mt-1">
+                      {cert.issuer}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="px-4 pb-4 pt-0 flex items-center justify-between font-mono-code text-[11px] font-bold text-[#888] border-t border-dashed border-[#DDD] mt-2 pt-2">
+                  <span>{cert.date}</span>
+                  <span className="text-[#121316] font-extrabold">&rarr;</span>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Modal Lightbox for High-Resolution Certificate Viewing */}
+      <AnimatePresence>
+        {selectedCert && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[120] bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 sm:p-8"
+            onClick={() => setSelectedCert(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.85, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.85, opacity: 0 }}
+              transition={neoSpring}
+              onClick={(e) => e.stopPropagation()}
+              className="bg-white brutal-border brutal-shadow-lg max-w-4xl w-full max-h-[90vh] flex flex-col overflow-hidden"
+            >
+              {/* Modal Header */}
+              <div className="bg-[#121316] text-white px-4 py-2.5 flex items-center justify-between font-mono-code text-xs font-bold border-b-2 border-[#121316]">
+                <span className="text-[#FFE033]">{selectedCert.title.toUpperCase()} // PREVIEW</span>
+                <button
+                  onClick={() => setSelectedCert(null)}
+                  className="bg-[#D94625] text-white px-2.5 py-0.5 border border-white hover:bg-white hover:text-[#121316] transition-colors"
+                >
+                  ESC / CLOSE [X]
+                </button>
+              </div>
+
+              {/* Modal Image Display */}
+              <div className="p-4 bg-[#2A2D3A] flex-1 overflow-auto flex items-center justify-center">
+                <img
+                  src={selectedCert.img}
+                  alt={selectedCert.title}
+                  className="max-h-[68vh] w-auto object-contain border-2 border-white shadow-2xl"
+                />
+              </div>
+
+              {/* Modal Footer Info */}
+              <div className="p-4 bg-[#FAF8F2] border-t-2 border-[#121316] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div>
+                  <h3 className="font-heading font-extrabold text-lg text-[#121316]">{selectedCert.title}</h3>
+                  <p className="font-mono-code text-xs text-[#555] font-semibold">{selectedCert.issuer} &bull; {selectedCert.date}</p>
+                </div>
+                <button
+                  onClick={() => setSelectedCert(null)}
+                  className="brutal-btn text-xs py-1.5 px-4 self-start sm:self-auto"
+                >
+                  Close Preview
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Purple Section: "What collaborators say." */}
       <section className="py-20 px-6 brutal-border border-t-0 border-l-0 border-r-0 bg-[#C497FF]">
