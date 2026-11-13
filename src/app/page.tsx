@@ -9,7 +9,8 @@ import {
   ArrowRight,
   ExternalLink,
   Mail,
-  Phone
+  Phone,
+  FileText
 } from "lucide-react";
 
 // Inline clean SVG icons for GitHub & LinkedIn to prevent version/bundle mismatches
@@ -322,6 +323,15 @@ export default function Home() {
             </a>
             <a href="#contact" className="brutal-btn brutal-btn-white">
               Get In Touch
+            </a>
+            <a 
+              href="/resume.pdf" 
+              target="_blank" 
+              rel="noreferrer"
+              className="brutal-btn bg-[#FFE033] hover:bg-[#FFF066]"
+            >
+              <FileText className="w-4 h-4" />
+              <span>Resume</span>
             </a>
             <a 
               href="https://github.com/ahal0309" 
@@ -1811,7 +1821,19 @@ export default function Home() {
                   <li><a href="#projects" className="hover:text-white hover:underline flex items-center gap-1.5">&rarr; Supermarket AI</a></li>
                   <li><a href="#client-work" className="hover:text-white hover:underline flex items-center gap-1.5">&rarr; Client Deployments</a></li>
                   <li><a href="#experience" className="hover:text-white hover:underline flex items-center gap-1.5">&rarr; Education & Milestones</a></li>
+                  <li><a href="#certificates" className="hover:text-white hover:underline flex items-center gap-1.5">&rarr; Certificates & Badges</a></li>
                   <li><a href="#contact" className="hover:text-white hover:underline flex items-center gap-1.5">&rarr; Contact Form</a></li>
+                  <li className="pt-2">
+                    <a 
+                      href="/resume.pdf" 
+                      target="_blank" 
+                      rel="noreferrer" 
+                      className="inline-flex items-center gap-2 bg-[#FFE033] text-[#121316] font-extrabold px-2.5 py-1 border border-[#121316] hover:bg-white transition-colors"
+                    >
+                      <FileText className="w-3.5 h-3.5" />
+                      <span>Resume (PDF)</span>
+                    </a>
+                  </li>
                 </ul>
               </div>
 
