@@ -51,6 +51,7 @@ export default function Home() {
     message: "",
   });
 
+  const [activeCertIndex, setActiveCertIndex] = useState(0);
   const [selectedCert, setSelectedCert] = useState<{
     title: string;
     issuer: string;
@@ -1096,7 +1097,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Verified Certificates & Credentials Showcase (Placed AFTER Education) */}
+      {/* Verified Certificates & Credentials Showcase (Interactive Hover Preview Layout) */}
       <section id="certificates" className="py-20 px-6 brutal-border border-t-0 border-l-0 border-r-0 bg-[#FFFDF5]">
         <div className="max-w-[1240px] mx-auto">
           <motion.div 
@@ -1112,7 +1113,7 @@ export default function Home() {
                 Certifications & Badges.
               </h2>
               <p className="text-sm sm:text-base text-[#555] mt-2 max-w-2xl leading-relaxed">
-                Click any certificate to expand in high-resolution preview. Verified certifications from Microsoft, IBM, IIT Bombay, MongoDB, Deloitte, and Great Learning.
+                Hover or click over any certificate title on the left to reveal its verified credential preview on the right.
               </p>
             </div>
             <div className="font-mono-code text-xs font-bold text-[#888] bg-white border-2 border-[#121316] px-3.5 py-2 brutal-shadow-sm self-start sm:self-auto">
@@ -1120,16 +1121,16 @@ export default function Home() {
             </div>
           </motion.div>
 
-          {/* Certificate Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
+          {/* Interactive Split Layout: Titles List on Left, Live Image on Right */}
+          {(() => {
+            const certificatesList = [
               {
                 title: "Azure Fundamentals",
                 issuer: "Microsoft Certiport",
                 date: "May 2025",
                 tag: "CLOUD & INFRA",
                 img: "/cert-azure.png",
-                badgeBg: "bg-[#42E8E0]",
+                tagColor: "bg-[#42E8E0]",
               },
               {
                 title: "Rapid Development for AI Services",
@@ -1137,7 +1138,7 @@ export default function Home() {
                 date: "Issued via Etrain",
                 tag: "ARTIFICIAL INTELLIGENCE",
                 img: "/cert-ibm-ai.png",
-                badgeBg: "bg-[#FFE033]",
+                tagColor: "bg-[#FFE033]",
               },
               {
                 title: "Cyber Job Simulation",
@@ -1145,7 +1146,7 @@ export default function Home() {
                 date: "October 2025",
                 tag: "CYBER SECURITY",
                 img: "/cert-deloitte.png",
-                badgeBg: "bg-[#FF85A2]",
+                tagColor: "bg-[#FF85A2]",
               },
               {
                 title: "MongoDB CRUD Operations",
@@ -1153,7 +1154,7 @@ export default function Home() {
                 date: "April 2025",
                 tag: "DATABASE SYSTEMS",
                 img: "/cert-mongodb.png",
-                badgeBg: "bg-[#62E89D]",
+                tagColor: "bg-[#62E89D]",
               },
               {
                 title: "R Test Certification",
@@ -1161,7 +1162,7 @@ export default function Home() {
                 date: "Dec 2024",
                 tag: "DATA SCIENCE",
                 img: "/cert-iitb-r.png",
-                badgeBg: "bg-[#C497FF]",
+                tagColor: "bg-[#C497FF]",
               },
               {
                 title: "Git Version Control",
@@ -1169,7 +1170,7 @@ export default function Home() {
                 date: "May 2025",
                 tag: "DEV TOOLING",
                 img: "/cert-iitb-git.png",
-                badgeBg: "bg-[#FF7B39] text-white",
+                tagColor: "bg-[#FF7B39] text-white",
               },
               {
                 title: "Linux Systems & Test",
@@ -1177,7 +1178,7 @@ export default function Home() {
                 date: "Nov 2025",
                 tag: "OPERATING SYSTEMS",
                 img: "/cert-iitb-linux.png",
-                badgeBg: "bg-[#FFE033]",
+                tagColor: "bg-[#FFE033]",
               },
               {
                 title: "Data Science & AI",
@@ -1185,58 +1186,128 @@ export default function Home() {
                 date: "Verified Credential",
                 tag: "MACHINE LEARNING",
                 img: "/cert-greatlearning.png",
-                badgeBg: "bg-[#42E8E0]",
+                tagColor: "bg-[#42E8E0]",
               },
-            ].map((cert, idx) => (
-              <motion.div
-                key={cert.title}
-                initial={{ opacity: 0, y: 35, scale: 0.95 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ ...neoSpring, delay: idx * 0.08 }}
-                onClick={() => setSelectedCert(cert)}
-                className="bg-white brutal-border brutal-shadow hover:-translate-y-2 hover:shadow-[6px_6px_0px_#121316] transition-all cursor-pointer flex flex-col justify-between overflow-hidden group"
-              >
-                <div>
-                  {/* Retro Window Header */}
-                  <div className="bg-[#121316] text-white px-3 py-1.5 flex items-center justify-between font-mono-code text-[11px] font-bold border-b-2 border-[#121316]">
-                    <span className="truncate pr-2 text-[#FFE033]">{cert.tag}</span>
-                    <span className="text-[10px] text-[#BAC2DE] underline">ZOOM</span>
-                  </div>
+            ];
 
-                  {/* Certificate Image Preview */}
-                  <div className="relative aspect-[4/3] w-full bg-[#EFEFEF] overflow-hidden border-b-2 border-[#121316]">
-                    <img
-                      src={cert.img}
-                      alt={cert.title}
-                      className="w-full h-full object-cover object-top transition-transform duration-300 group-hover:scale-105"
-                      loading="lazy"
-                    />
-                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
-                      <span className="opacity-0 group-hover:opacity-100 bg-[#121316] text-white text-xs font-mono-code font-bold px-2.5 py-1 border border-white transition-opacity">
-                        Click to Preview
+            const activeCert = certificatesList[activeCertIndex] || certificatesList[0];
+
+            return (
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                {/* Left Side: Interactive Titles List (7 Columns) */}
+                <div className="lg:col-span-7 space-y-3">
+                  {certificatesList.map((cert, idx) => {
+                    const isSelected = activeCertIndex === idx;
+                    return (
+                      <motion.div
+                        key={cert.title}
+                        initial={{ opacity: 0, x: -20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ ...neoSpring, delay: idx * 0.05 }}
+                        onMouseEnter={() => setActiveCertIndex(idx)}
+                        onClick={() => {
+                          setActiveCertIndex(idx);
+                          setSelectedCert(cert);
+                        }}
+                        className={`p-4 sm:p-5 border-2 border-[#121316] transition-all cursor-pointer flex items-center justify-between gap-4 select-none ${
+                          isSelected
+                            ? "bg-[#FFE033] shadow-[5px_5px_0px_#121316] translate-x-1"
+                            : "bg-white hover:bg-[#FFFEF2] hover:shadow-[3px_3px_0px_#121316] hover:translate-x-0.5"
+                        }`}
+                      >
+                        <div className="flex items-center gap-3.5 min-w-0">
+                          <span className={`font-mono-code text-[11px] font-extrabold px-2 py-0.5 border border-[#121316] shrink-0 ${cert.tagColor}`}>
+                            0{idx + 1}
+                          </span>
+                          <div className="min-w-0">
+                            <h4 className="font-heading font-extrabold text-base sm:text-lg text-[#121316] truncate">
+                              {cert.title}
+                            </h4>
+                            <p className="font-mono-code text-xs text-[#555] font-semibold truncate">
+                              {cert.issuer} &bull; <span className="text-[#888]">{cert.date}</span>
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="flex items-center gap-2 shrink-0">
+                          <span className={`font-mono-code text-[10px] font-extrabold uppercase px-2 py-0.5 border border-[#121316] hidden sm:inline-block ${cert.tagColor}`}>
+                            {cert.tag}
+                          </span>
+                          <span className={`w-7 h-7 border-2 border-[#121316] flex items-center justify-center font-mono-code text-xs font-black brutal-shadow-sm transition-transform ${
+                            isSelected ? "bg-[#121316] text-white rotate-45" : "bg-white text-[#121316]"
+                          }`}>
+                            &rarr;
+                          </span>
+                        </div>
+                      </motion.div>
+                    );
+                  })}
+                </div>
+
+                {/* Right Side: Sticky Live Interactive Preview Window (5 Columns) */}
+                <div className="lg:col-span-5 lg:sticky lg:top-24">
+                  <motion.div
+                    key={activeCert.title}
+                    initial={{ opacity: 0, scale: 0.96 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.2 }}
+                    className="bg-white brutal-border brutal-shadow-lg overflow-hidden flex flex-col"
+                  >
+                    {/* Retro Window Top Bar */}
+                    <div className="bg-[#121316] text-white px-4 py-2.5 flex items-center justify-between font-mono-code text-xs font-bold border-b-2 border-[#121316]">
+                      <span className="text-[#FFE033] truncate pr-2">
+                        {activeCert.tag} // PREVIEW
                       </span>
+                      <div className="flex gap-1.5 shrink-0">
+                        <span className="w-2.5 h-2.5 border border-white bg-white/20 inline-block"></span>
+                        <span className="w-2.5 h-2.5 border border-white bg-white/20 inline-block"></span>
+                        <span className="w-2.5 h-2.5 border border-white bg-white/20 inline-block"></span>
+                      </div>
                     </div>
-                  </div>
 
-                  {/* Text Details */}
-                  <div className="p-4">
-                    <h4 className="font-heading font-extrabold text-base text-[#121316] leading-snug">
-                      {cert.title}
-                    </h4>
-                    <p className="font-mono-code text-xs text-[#555] font-semibold mt-1">
-                      {cert.issuer}
-                    </p>
-                  </div>
-                </div>
+                    {/* Certificate Preview Image */}
+                    <div 
+                      onClick={() => setSelectedCert(activeCert)}
+                      className="relative aspect-[4/3] w-full bg-[#1A1A1A] overflow-hidden border-b-2 border-[#121316] cursor-pointer group"
+                    >
+                      <img
+                        src={activeCert.img}
+                        alt={activeCert.title}
+                        className="w-full h-full object-contain p-2 bg-[#222430] transition-transform duration-300 group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors flex items-center justify-center">
+                        <span className="opacity-0 group-hover:opacity-100 bg-[#FFE033] text-[#121316] font-mono-code text-xs font-extrabold px-3 py-1.5 border-2 border-[#121316] brutal-shadow-sm transition-opacity">
+                          Click for Full Lightbox [⤢]
+                        </span>
+                      </div>
+                    </div>
 
-                <div className="px-4 pb-4 pt-0 flex items-center justify-between font-mono-code text-[11px] font-bold text-[#888] border-t border-dashed border-[#DDD] mt-2 pt-2">
-                  <span>{cert.date}</span>
-                  <span className="text-[#121316] font-extrabold">&rarr;</span>
+                    {/* Bottom Metadata Info */}
+                    <div className="p-5 bg-[#FAF8F2]">
+                      <div className="flex items-center justify-between mb-1.5">
+                        <span className="font-mono-code text-[11px] font-extrabold text-[#0066CC] uppercase">
+                          {activeCert.issuer}
+                        </span>
+                        <span className="font-mono-code text-xs font-bold text-[#666]">
+                          {activeCert.date}
+                        </span>
+                      </div>
+                      <h3 className="font-heading font-extrabold text-xl text-[#121316] leading-snug">
+                        {activeCert.title}
+                      </h3>
+                      <button
+                        onClick={() => setSelectedCert(activeCert)}
+                        className="mt-4 brutal-btn w-full justify-center text-xs py-2"
+                      >
+                        Expand Certificate in Full-Res &rarr;
+                      </button>
+                    </div>
+                  </motion.div>
                 </div>
-              </motion.div>
-            ))}
-          </div>
+              </div>
+            );
+          })()}
         </div>
       </section>
 
