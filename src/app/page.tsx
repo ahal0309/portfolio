@@ -80,6 +80,7 @@ export default function Home() {
             <a href="#about" className="hover:underline underline-offset-4 text-[#121316]">About</a>
             <a href="#skills" className="hover:underline underline-offset-4 text-[#121316]">Skills</a>
             <a href="#projects" className="hover:underline underline-offset-4 text-[#121316]">Projects</a>
+            <a href="#client-work" className="hover:underline underline-offset-4 text-[#121316]">Client Work</a>
             <a href="#experience" className="hover:underline underline-offset-4 text-[#121316]">Education</a>
             <a href="#faq" className="hover:underline underline-offset-4 text-[#121316]">FAQ</a>
           </nav>
@@ -471,6 +472,284 @@ export default function Home() {
                     <li>Modular code structures ready for production inference</li>
                   </ul>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Client Work Section (Placed between Projects and Workflow Methodology) */}
+      <section id="client-work" className="py-20 px-6 brutal-border border-t-0 border-l-0 border-r-0 bg-[#FFFDF5]">
+        <div className="max-w-[1200px] mx-auto">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
+            <div>
+              <div className="brutal-badge mb-3 bg-[#FFE033]">PRODUCTION PORTFOLIO</div>
+              <h2 className="font-heading font-extrabold text-3xl sm:text-5xl text-[#121316] tracking-tight">
+                Works I've Done for Clients.
+              </h2>
+              <p className="text-sm sm:text-base text-[#555] mt-2 max-w-2xl leading-relaxed">
+                Real-world web applications, production systems, and digital presences built and shipped for businesses, clinics, luxury brands, and enterprises.
+              </p>
+            </div>
+            <div className="font-mono-code text-xs font-bold text-[#888] bg-white border-2 border-[#121316] px-3.5 py-2 brutal-shadow-sm self-start sm:self-auto">
+              4 Production Deployments
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Client 1: Chai Days */}
+            <div className="bg-white brutal-border brutal-shadow-lg flex flex-col justify-between hover:-translate-y-1.5 transition-all overflow-hidden group">
+              <div>
+                {/* Retro Window Bar */}
+                <div className="bg-[#121316] text-white px-3.5 py-2 flex items-center justify-between font-mono-code text-xs font-bold border-b-2 border-[#121316]">
+                  <span className="text-[#FFE033]">CHAIDAYS.VERCEL.APP</span>
+                  <div className="flex gap-1.5">
+                    <span className="w-2.5 h-2.5 border border-white bg-white/20 inline-block"></span>
+                    <span className="w-2.5 h-2.5 border border-white bg-white/20 inline-block"></span>
+                    <span className="w-2.5 h-2.5 border border-white bg-white/20 inline-block"></span>
+                  </div>
+                </div>
+
+                {/* Screenshot Preview */}
+                <div className="relative aspect-[16/10] w-full bg-[#1A1A1A] overflow-hidden border-b-2 border-[#121316]">
+                  <img
+                    src="/client-chaidays.png"
+                    alt="Chai Days Website Preview"
+                    className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                  <div className="absolute top-3 right-3 bg-[#121316] text-white font-mono-code text-[10px] font-extrabold px-2 py-0.5 border border-white">
+                    LIVE WEB APP
+                  </div>
+                </div>
+
+                {/* Body Content */}
+                <div className="p-6">
+                  <div className="flex items-start justify-between gap-3 mb-2">
+                    <div>
+                      <span className="font-mono-code text-[11px] font-bold uppercase text-[#D94625]">Food & Beverage Brand</span>
+                      <h3 className="font-heading font-extrabold text-2xl text-[#121316] mt-0.5">
+                        Chai Days
+                      </h3>
+                    </div>
+                  </div>
+                  <p className="text-sm text-[#4A4D55] leading-relaxed mt-2">
+                    A modern, immersive digital experience designed for the contemporary ritual of tea culture. Built with sleek aesthetics, fast page performance, and smooth customer journey flows.
+                  </p>
+
+                  <div className="flex flex-wrap gap-2 my-4">
+                    {["Next.js", "React", "Tailwind CSS", "Vercel", "Responsive UX"].map((tag) => (
+                      <span key={tag} className="bg-[#F1EFEA] border border-[#121316] font-mono-code text-[11px] font-bold px-2 py-0.5">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Action Footer */}
+              <div className="p-6 pt-0">
+                <a
+                  href="https://chaidays.vercel.app/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="brutal-btn w-full justify-center text-xs"
+                >
+                  <span>Visit Live Website</span>
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </a>
+              </div>
+            </div>
+
+            {/* Client 2: Easy Support UAE */}
+            <div className="bg-white brutal-border brutal-shadow-lg flex flex-col justify-between hover:-translate-y-1.5 transition-all overflow-hidden group">
+              <div>
+                {/* Retro Window Bar */}
+                <div className="bg-[#121316] text-white px-3.5 py-2 flex items-center justify-between font-mono-code text-xs font-bold border-b-2 border-[#121316]">
+                  <span className="text-[#42E8E0]">EASYSUPPORT.AE</span>
+                  <div className="flex gap-1.5">
+                    <span className="w-2.5 h-2.5 border border-white bg-white/20 inline-block"></span>
+                    <span className="w-2.5 h-2.5 border border-white bg-white/20 inline-block"></span>
+                    <span className="w-2.5 h-2.5 border border-white bg-white/20 inline-block"></span>
+                  </div>
+                </div>
+
+                {/* Screenshot Preview */}
+                <div className="relative aspect-[16/10] w-full bg-[#1A1A1A] overflow-hidden border-b-2 border-[#121316]">
+                  <img
+                    src="/client-easysupport.png"
+                    alt="Easy Support Typing Services Preview"
+                    className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                  <div className="absolute top-3 right-3 bg-[#121316] text-white font-mono-code text-[10px] font-extrabold px-2 py-0.5 border border-white">
+                    CORPORATE SERVICES
+                  </div>
+                </div>
+
+                {/* Body Content */}
+                <div className="p-6">
+                  <div className="flex items-start justify-between gap-3 mb-2">
+                    <div>
+                      <span className="font-mono-code text-[11px] font-bold uppercase text-[#3448C5]">UAE PRO & Business Setup</span>
+                      <h3 className="font-heading font-extrabold text-2xl text-[#121316] mt-0.5">
+                        Easy Support Typing Services
+                      </h3>
+                    </div>
+                  </div>
+                  <p className="text-sm text-[#4A4D55] leading-relaxed mt-2">
+                    Corporate portal engineered for a UAE-based typing, PRO, visa clearance, and business formation enterprise. Designed for trust, rapid inquiry conversions, and clear service breakdowns.
+                  </p>
+
+                  <div className="flex flex-wrap gap-2 my-4">
+                    {["Business Portal", "SEO Optimization", "Lead Generation", "Corporate UI"].map((tag) => (
+                      <span key={tag} className="bg-[#F1EFEA] border border-[#121316] font-mono-code text-[11px] font-bold px-2 py-0.5">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Action Footer */}
+              <div className="p-6 pt-0">
+                <a
+                  href="https://www.easysupport.ae/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="brutal-btn brutal-btn-white w-full justify-center text-xs"
+                >
+                  <span>Visit Live Website</span>
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </a>
+              </div>
+            </div>
+
+            {/* Client 3: Manasu Counselling Centre */}
+            <div className="bg-white brutal-border brutal-shadow-lg flex flex-col justify-between hover:-translate-y-1.5 transition-all overflow-hidden group">
+              <div>
+                {/* Retro Window Bar */}
+                <div className="bg-[#121316] text-white px-3.5 py-2 flex items-center justify-between font-mono-code text-xs font-bold border-b-2 border-[#121316]">
+                  <span className="text-[#62E89D]">MANASUCOUNSELLINGCENTRE.COM</span>
+                  <div className="flex gap-1.5">
+                    <span className="w-2.5 h-2.5 border border-white bg-white/20 inline-block"></span>
+                    <span className="w-2.5 h-2.5 border border-white bg-white/20 inline-block"></span>
+                    <span className="w-2.5 h-2.5 border border-white bg-white/20 inline-block"></span>
+                  </div>
+                </div>
+
+                {/* Screenshot Preview */}
+                <div className="relative aspect-[16/10] w-full bg-[#1A1A1A] overflow-hidden border-b-2 border-[#121316]">
+                  <img
+                    src="/client-manasu.png"
+                    alt="Manasu Counselling Centre Website Preview"
+                    className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                  <div className="absolute top-3 right-3 bg-[#121316] text-white font-mono-code text-[10px] font-extrabold px-2 py-0.5 border border-white">
+                    HEALTHCARE & WELLNESS
+                  </div>
+                </div>
+
+                {/* Body Content */}
+                <div className="p-6">
+                  <div className="flex items-start justify-between gap-3 mb-2">
+                    <div>
+                      <span className="font-mono-code text-[11px] font-bold uppercase text-[#3CB371]">Mental Health & Wellness</span>
+                      <h3 className="font-heading font-extrabold text-2xl text-[#121316] mt-0.5">
+                        Manasu Counselling Centre
+                      </h3>
+                    </div>
+                  </div>
+                  <p className="text-sm text-[#4A4D55] leading-relaxed mt-2">
+                    A compassionate, accessible healthcare platform for mental wellness therapy, counselling appointments, and specialist psychological guidance with empathetic, patient-centric design.
+                  </p>
+
+                  <div className="flex flex-wrap gap-2 my-4">
+                    {["Healthcare Platform", "Appointment UX", "Accessibility", "Patient Portal"].map((tag) => (
+                      <span key={tag} className="bg-[#F1EFEA] border border-[#121316] font-mono-code text-[11px] font-bold px-2 py-0.5">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Action Footer */}
+              <div className="p-6 pt-0">
+                <a
+                  href="https://www.manasucounsellingcentre.com/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="brutal-btn brutal-btn-white w-full justify-center text-xs"
+                >
+                  <span>Visit Live Website</span>
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </a>
+              </div>
+            </div>
+
+            {/* Client 4: Afana's Angel */}
+            <div className="bg-white brutal-border brutal-shadow-lg flex flex-col justify-between hover:-translate-y-1.5 transition-all overflow-hidden group">
+              <div>
+                {/* Retro Window Bar */}
+                <div className="bg-[#121316] text-white px-3.5 py-2 flex items-center justify-between font-mono-code text-xs font-bold border-b-2 border-[#121316]">
+                  <span className="text-[#FF85A2]">AFANASANGEL.COM</span>
+                  <div className="flex gap-1.5">
+                    <span className="w-2.5 h-2.5 border border-white bg-white/20 inline-block"></span>
+                    <span className="w-2.5 h-2.5 border border-white bg-white/20 inline-block"></span>
+                    <span className="w-2.5 h-2.5 border border-white bg-white/20 inline-block"></span>
+                  </div>
+                </div>
+
+                {/* Screenshot Preview */}
+                <div className="relative aspect-[16/10] w-full bg-[#1A1A1A] overflow-hidden border-b-2 border-[#121316]">
+                  <img
+                    src="/client-afanasangel.png"
+                    alt="Afana's Angel Luxury Abayas Website Preview"
+                    className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                  <div className="absolute top-3 right-3 bg-[#121316] text-white font-mono-code text-[10px] font-extrabold px-2 py-0.5 border border-white">
+                    HAUTE COUTURE & E-COMMERCE
+                  </div>
+                </div>
+
+                {/* Body Content */}
+                <div className="p-6">
+                  <div className="flex items-start justify-between gap-3 mb-2">
+                    <div>
+                      <span className="font-mono-code text-[11px] font-bold uppercase text-[#C497FF]">Luxury Fashion & Abayas</span>
+                      <h3 className="font-heading font-extrabold text-2xl text-[#121316] mt-0.5">
+                        Afana's Angel
+                      </h3>
+                    </div>
+                  </div>
+                  <p className="text-sm text-[#4A4D55] leading-relaxed mt-2">
+                    High-end luxury fashion and haute couture boutique e-commerce showcase featuring bespoke abayas, editorial photography catalogs, and seamless luxury brand storytelling.
+                  </p>
+
+                  <div className="flex flex-wrap gap-2 my-4">
+                    {["E-Commerce", "Luxury Brand UI", "Product Showcase", "Mobile First"].map((tag) => (
+                      <span key={tag} className="bg-[#F1EFEA] border border-[#121316] font-mono-code text-[11px] font-bold px-2 py-0.5">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Action Footer */}
+              <div className="p-6 pt-0">
+                <a
+                  href="https://www.afanasangel.com/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="brutal-btn w-full justify-center text-xs"
+                >
+                  <span>Visit Live Website</span>
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </a>
               </div>
             </div>
           </div>
