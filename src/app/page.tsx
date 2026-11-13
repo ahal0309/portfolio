@@ -38,6 +38,9 @@ const neoSpring = {
 };
 
 export default function Home() {
+  const [loading, setLoading] = useState(true);
+  const [loadProgress, setLoadProgress] = useState(0);
+  const [loadingStage, setLoadingStage] = useState("INITIALIZING_CORE_SYSTEMS");
   const [activeFaq, setActiveFaq] = useState<number | null>(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
@@ -47,6 +50,33 @@ export default function Home() {
     subject: "",
     message: "",
   });
+
+  // Simulated retro OS / AI system boot sequence
+  React.useEffect(() => {
+    const stages = [
+      { progress: 20, stage: "LOADING_NEURAL_WEIGHTS.SYS" },
+      { progress: 45, stage: "CONNECTING_GEMINI_API" },
+      { progress: 75, stage: "INITIALIZING_REACT_PORTFOLIO" },
+      { progress: 95, stage: "BOOTSTRAP_COMPLETE" },
+      { progress: 100, stage: "WELCOME_AHAL_DEV" },
+    ];
+
+    let current = 0;
+    const interval = setInterval(() => {
+      if (current < stages.length) {
+        setLoadProgress(stages[current].progress);
+        setLoadingStage(stages[current].stage);
+        current++;
+      } else {
+        clearInterval(interval);
+        setTimeout(() => {
+          setLoading(false);
+        }, 350);
+      }
+    }, 280);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const toggleFaq = (index: number) => {
     setActiveFaq(activeFaq === index ? null : index);
@@ -96,6 +126,75 @@ export default function Home() {
 
   return (
     <main className="min-h-screen grid-bg relative selection:bg-[#FFE033] selection:text-black">
+      {/* Interactive Neo-Brutalist OS Boot Loader */}
+      <AnimatePresence>
+        {loading && (
+          <motion.div
+            key="preloader"
+            initial={{ opacity: 1 }}
+            exit={{ 
+              opacity: 0, 
+              y: -50,
+              transition: { duration: 0.45, ease: "easeInOut" } 
+            }}
+            className="fixed inset-0 z-[100] bg-[#FAF8F2] grid-bg flex flex-col items-center justify-center p-6"
+          >
+            <motion.div 
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.3 }}
+              className="w-full max-w-md bg-white brutal-border brutal-shadow-lg overflow-hidden"
+            >
+              {/* Window Header */}
+              <div className="bg-[#121316] text-white px-4 py-2.5 flex items-center justify-between font-mono-code text-xs font-bold border-b-2 border-[#121316]">
+                <div className="flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#00FF88] status-dot-pulse"></span>
+                  <span className="text-[#FFE033]">SYSTEM_BOOT.EXE</span>
+                </div>
+                <div className="flex gap-1.5">
+                  <span className="w-2.5 h-2.5 border border-white bg-white/20 inline-block"></span>
+                  <span className="w-2.5 h-2.5 border border-white bg-white/20 inline-block"></span>
+                  <span className="w-2.5 h-2.5 border border-white bg-white/20 inline-block"></span>
+                </div>
+              </div>
+
+              {/* Window Content */}
+              <div className="p-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 bg-[#FFE033] border-2 border-[#121316] brutal-shadow-sm flex items-center justify-center font-heading font-extrabold text-xl">
+                    AJ
+                  </div>
+                  <div>
+                    <h3 className="font-heading font-extrabold text-lg text-[#121316]">Ahal Abdul Jaleel</h3>
+                    <p className="font-mono-code text-xs font-bold text-[#666]">AI & ML Engineer Portfolio</p>
+                  </div>
+                </div>
+
+                {/* Progress Bar Container */}
+                <div className="bg-[#FAF8F2] border-2 border-[#121316] p-1.5 mb-3 brutal-shadow-sm">
+                  <motion.div
+                    className="h-5 bg-[#FFE033] border border-[#121316]"
+                    style={{ width: `${loadProgress}%` }}
+                    transition={{ ease: "easeInOut", duration: 0.2 }}
+                  />
+                </div>
+
+                {/* Status Bar & Percentage */}
+                <div className="flex items-center justify-between font-mono-code text-xs font-bold text-[#121316]">
+                  <span className="text-[#0066CC] truncate pr-2">&gt; {loadingStage}</span>
+                  <span className="bg-[#121316] text-white px-1.5 py-0.5">{loadProgress}%</span>
+                </div>
+
+                <div className="mt-4 pt-3 border-t-2 border-dashed border-[#DDD] flex items-center justify-between font-mono-code text-[11px] text-[#888]">
+                  <span>VTU • Yenepoya Institute of Tech</span>
+                  <span>STATUS: READY</span>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Floating Status Pill */}
       <motion.a 
         initial={{ opacity: 0, y: 30, scale: 0.9 }}
