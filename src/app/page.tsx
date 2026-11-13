@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { 
   Sparkles, 
   ShoppingCart, 
@@ -28,6 +29,14 @@ function LinkedinIcon({ className = "w-4 h-4" }: { className?: string }) {
   );
 }
 
+// Spring animation preset for energetic neo-brutalist feel
+const neoSpring = {
+  type: "spring" as const,
+  stiffness: 120,
+  damping: 14,
+  mass: 0.8,
+};
+
 export default function Home() {
   const [activeFaq, setActiveFaq] = useState<number | null>(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -49,7 +58,6 @@ export default function Home() {
     setSubmitStatus("idle");
 
     try {
-      // Send directly to Formsubmit endpoint configured to forward to ahalabduljaleel8@gmail.com
       const res = await fetch("https://formsubmit.co/ajax/ahalabduljaleel8@gmail.com", {
         method: "POST",
         headers: {
@@ -74,7 +82,6 @@ export default function Home() {
         throw new Error("Submission failed");
       }
     } catch (err) {
-      // Fallback: trigger user's default email client pre-filled
       const mailtoUrl = `mailto:ahalabduljaleel8@gmail.com?subject=${encodeURIComponent(
         (formData.subject || "AI Opportunity") + " - " + formData.name
       )}&body=${encodeURIComponent(
@@ -90,13 +97,16 @@ export default function Home() {
   return (
     <main className="min-h-screen grid-bg relative selection:bg-[#FFE033] selection:text-black">
       {/* Floating Status Pill */}
-      <a 
+      <motion.a 
+        initial={{ opacity: 0, y: 30, scale: 0.9 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ delay: 0.6, duration: 0.5, ease: "easeOut" }}
         href="#contact" 
         className="fixed bottom-6 right-6 z-50 bg-[#121316] text-white border-2 border-white brutal-shadow px-4 py-2.5 rounded-full flex items-center gap-2.5 text-xs font-bold font-mono-code hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all"
       >
         <span className="w-2.5 h-2.5 rounded-full bg-[#00FF88] shadow-[0_0_8px_#00FF88] status-dot-pulse"></span>
         <span>Available for Entry-Level Roles</span>
-      </a>
+      </motion.a>
 
       {/* Top Header / Navbar */}
       <header className="sticky top-0 z-40 bg-white brutal-border border-t-0 border-l-0 border-r-0">
@@ -126,20 +136,40 @@ export default function Home() {
       {/* Hero Section */}
       <section className="brutal-border border-t-0 border-l-0 border-r-0 py-16 md:py-24 px-6 bg-[#FAF8F2]">
         <div className="max-w-[1200px] mx-auto">
-          <div className="brutal-badge mb-4">
+          <motion.div 
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+            className="brutal-badge mb-4"
+          >
             <Sparkles className="w-3.5 h-3.5" />
             AI & Machine Learning Engineer
-          </div>
+          </motion.div>
 
-          <h1 className="font-heading font-extrabold text-4xl sm:text-5xl md:text-6xl text-[#121316] tracking-tight leading-[1.08] max-w-4xl my-4">
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="font-heading font-extrabold text-4xl sm:text-5xl md:text-6xl text-[#121316] tracking-tight leading-[1.08] max-w-4xl my-4"
+          >
             Engineering intelligent ML models & scalable AI applications that solve real-world problems.
-          </h1>
+          </motion.h1>
 
-          <p className="text-base sm:text-lg text-[#4A4D55] max-w-2xl leading-relaxed mb-8">
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="text-base sm:text-lg text-[#4A4D55] max-w-2xl leading-relaxed mb-8"
+          >
             Enthusiastic AI & ML graduate from <strong>Yenepoya Institute of Technology (VTU)</strong> seeking an entry-level AI Engineer role. Specializing in machine learning, NLP, generative AI, and full-stack intelligent mobile systems.
-          </p>
+          </motion.p>
 
-          <div className="flex flex-wrap items-center gap-4 mb-12">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="flex flex-wrap items-center gap-4 mb-12"
+          >
             <a href="#projects" className="brutal-btn">
               View Featured Project &rarr;
             </a>
@@ -164,12 +194,17 @@ export default function Home() {
               <LinkedinIcon className="w-3.5 h-3.5" />
               linkedin.com/in/ahal-abdul-jaleel
             </a>
-          </div>
+          </motion.div>
 
           {/* Retro OS Style Triple Preview Windows */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {/* Window 1 */}
-            <div className="bg-white brutal-border brutal-shadow flex flex-col overflow-hidden">
+            <motion.div 
+              initial={{ opacity: 0, y: 30, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ delay: 0.25, duration: 0.45, ease: "easeOut" }}
+              className="bg-white brutal-border brutal-shadow flex flex-col overflow-hidden"
+            >
               <div className="bg-[#3448C5] text-white px-3 py-2 brutal-border border-t-0 border-l-0 border-r-0 flex items-center justify-between font-mono-code text-xs font-bold">
                 <span>APP_INTERFACE.EXE</span>
                 <div className="flex gap-1.5">
@@ -192,10 +227,15 @@ export default function Home() {
                   <span className="bg-[#252D4D] text-white text-[11px] font-mono-code font-bold px-2 py-0.5 border border-[#434C73]">Gemini API</span>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Window 2 */}
-            <div className="bg-white brutal-border brutal-shadow flex flex-col overflow-hidden">
+            <motion.div 
+              initial={{ opacity: 0, y: 30, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ delay: 0.35, duration: 0.45, ease: "easeOut" }}
+              className="bg-white brutal-border brutal-shadow flex flex-col overflow-hidden"
+            >
               <div className="bg-[#FF85A2] text-[#121316] px-3 py-2 brutal-border border-t-0 border-l-0 border-r-0 flex items-center justify-between font-mono-code text-xs font-bold">
                 <span>CERTIFICATIONS.TXT</span>
                 <div className="flex gap-1.5">
@@ -217,10 +257,15 @@ export default function Home() {
                   Status: Dual Certified
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Window 3 */}
-            <div className="bg-white brutal-border brutal-shadow flex flex-col overflow-hidden">
+            <motion.div 
+              initial={{ opacity: 0, y: 30, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ delay: 0.45, duration: 0.45, ease: "easeOut" }}
+              className="bg-white brutal-border brutal-shadow flex flex-col overflow-hidden"
+            >
               <div className="bg-[#FFE033] text-[#121316] px-3 py-2 brutal-border border-t-0 border-l-0 border-r-0 flex items-center justify-between font-mono-code text-xs font-bold">
                 <span>NIT_CALICUT_AIHC.LOG</span>
                 <div className="flex gap-1.5">
@@ -241,7 +286,7 @@ export default function Home() {
                   Leadership: Matrix Fusion 4.0
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -250,7 +295,13 @@ export default function Home() {
       <section id="about" className="py-20 px-6 brutal-border border-t-0 border-l-0 border-r-0 bg-[#FFFDF8]">
         <div className="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-[360px_1fr] gap-10 items-start">
           {/* Left Column Graphic Window */}
-          <div className="bg-[#121316] brutal-border brutal-shadow-lg overflow-hidden">
+          <motion.div 
+            initial={{ opacity: 0, x: -40, rotate: -2 }}
+            whileInView={{ opacity: 1, x: 0, rotate: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={neoSpring}
+            className="bg-[#121316] brutal-border brutal-shadow-lg overflow-hidden"
+          >
             <div className="bg-[#121316] text-white px-3.5 py-2 flex items-center justify-end font-mono-code text-xs font-bold border-b-2 border-white/20">
               <div className="flex gap-1.5">
                 <span className="w-2.5 h-2.5 border border-white bg-white/20 inline-block"></span>
@@ -273,10 +324,16 @@ export default function Home() {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Right Column Yellow Content Box */}
-          <div className="bg-[#FFE033] brutal-border brutal-shadow-lg p-8 md:p-10">
+          <motion.div 
+            initial={{ opacity: 0, x: 40, y: 20 }}
+            whileInView={{ opacity: 1, x: 0, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ ...neoSpring, delay: 0.1 }}
+            className="bg-[#FFE033] brutal-border brutal-shadow-lg p-8 md:p-10"
+          >
             <div className="brutal-badge bg-white mb-3">BIO & PROFILE</div>
             <h2 className="font-heading font-extrabold text-3xl sm:text-4xl text-[#121316] tracking-tight mb-4">
               Oh, hey.
@@ -290,22 +347,24 @@ export default function Home() {
 
             {/* Stats Row */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-6">
-              <div className="bg-white border-2 border-[#121316] brutal-shadow-sm p-3.5">
-                <div className="font-heading font-extrabold text-2xl text-[#121316]">8.0</div>
-                <div className="font-mono-code text-[10px] font-bold text-[#666] uppercase">B.E. CGPA (VTU)</div>
-              </div>
-              <div className="bg-white border-2 border-[#121316] brutal-shadow-sm p-3.5">
-                <div className="font-heading font-extrabold text-2xl text-[#121316]">6+</div>
-                <div className="font-mono-code text-[10px] font-bold text-[#666] uppercase">Languages</div>
-              </div>
-              <div className="bg-white border-2 border-[#121316] brutal-shadow-sm p-3.5">
-                <div className="font-heading font-extrabold text-2xl text-[#121316]">2027</div>
-                <div className="font-mono-code text-[10px] font-bold text-[#666] uppercase">Graduation</div>
-              </div>
-              <div className="bg-white border-2 border-[#121316] brutal-shadow-sm p-3.5">
-                <div className="font-heading font-extrabold text-2xl text-[#121316]">2+</div>
-                <div className="font-mono-code text-[10px] font-bold text-[#666] uppercase">Certifications</div>
-              </div>
+              {[
+                { num: "8.0", label: "B.E. CGPA (VTU)" },
+                { num: "6+", label: "Languages" },
+                { num: "2027", label: "Graduation" },
+                { num: "2+", label: "Certifications" },
+              ].map((stat, i) => (
+                <motion.div 
+                  key={stat.label}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.2 + i * 0.08, type: "spring", stiffness: 140 }}
+                  className="bg-white border-2 border-[#121316] brutal-shadow-sm p-3.5"
+                >
+                  <div className="font-heading font-extrabold text-2xl text-[#121316]">{stat.num}</div>
+                  <div className="font-mono-code text-[10px] font-bold text-[#666] uppercase">{stat.label}</div>
+                </motion.div>
+              ))}
             </div>
 
             <div className="mt-8 flex flex-wrap gap-3.5">
@@ -316,111 +375,124 @@ export default function Home() {
                 ahalabduljaleel8@gmail.com
               </a>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Sticky Notes Section: "Stuff I'm good at." (Placed AFTER About) */}
       <section id="skills" className="py-20 px-6 brutal-border border-t-0 border-l-0 border-r-0 bg-[#FDFBF7]">
         <div className="max-w-[1200px] mx-auto">
-          <div className="brutal-badge mb-3">CORE CAPABILITIES</div>
-          <h2 className="font-heading font-extrabold text-3xl sm:text-4xl text-[#121316] tracking-tight">
-            Stuff I'm good at.
-          </h2>
-          <p className="text-sm sm:text-base text-[#555] mt-1 max-w-xl">
-            A comprehensive breakdown of foundational AI/ML proficiencies, tools, frameworks, and programming toolkits from my degree and projects.
-          </p>
+          <motion.div 
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4 }}
+          >
+            <div className="brutal-badge mb-3">CORE CAPABILITIES</div>
+            <h2 className="font-heading font-extrabold text-3xl sm:text-4xl text-[#121316] tracking-tight">
+              Stuff I'm good at.
+            </h2>
+            <p className="text-sm sm:text-base text-[#555] mt-1 max-w-xl">
+              A comprehensive breakdown of foundational AI/ML proficiencies, tools, frameworks, and programming toolkits from my degree and projects.
+            </p>
+          </motion.div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
-            {/* Note 1: Pink */}
-            <div className="bg-[#FF85A2] brutal-border brutal-shadow-lg p-6 min-h-[200px] flex flex-col justify-between relative transform -rotate-1 hover:rotate-0 hover:-translate-y-1.5 transition-all">
-              <div className="w-3.5 h-3.5 rounded-full bg-[#121316] absolute top-3 left-1/2 -translate-x-1/2"></div>
-              <div>
-                <span className="font-mono-code text-[11px] font-bold uppercase opacity-80">Core Engineering</span>
-                <h3 className="font-heading font-extrabold text-xl text-[#121316] mt-2 mb-1">Machine Learning</h3>
-                <p className="text-xs sm:text-[13px] font-semibold text-[#222] leading-relaxed">
-                  Predictive modeling, regression, supervised & unsupervised learning, model tuning and evaluation.
-                </p>
-              </div>
-              <div className="inline-block self-start font-mono-code text-[11px] font-bold bg-white/80 border border-[#121316] px-2 py-0.5 mt-3">
-                Scikit-Learn &bull; Py
-              </div>
-            </div>
-
-            {/* Note 2: Yellow */}
-            <div className="bg-[#FFE033] brutal-border brutal-shadow-lg p-6 min-h-[200px] flex flex-col justify-between relative transform rotate-1 hover:rotate-0 hover:-translate-y-1.5 transition-all">
-              <div className="w-3.5 h-3.5 rounded-full bg-[#121316] absolute top-3 left-1/2 -translate-x-1/2"></div>
-              <div>
-                <span className="font-mono-code text-[11px] font-bold uppercase opacity-80">Specialization</span>
-                <h3 className="font-heading font-extrabold text-xl text-[#121316] mt-2 mb-1">Natural Language Processing</h3>
-                <p className="text-xs sm:text-[13px] font-semibold text-[#222] leading-relaxed">
-                  Text processing, semantic analysis, tokenization, embeddings, and conversational AI architecture.
-                </p>
-              </div>
-              <div className="inline-block self-start font-mono-code text-[11px] font-bold bg-white/80 border border-[#121316] px-2 py-0.5 mt-3">
-                Transformers &bull; NLP
-              </div>
-            </div>
-
-            {/* Note 3: Cyan */}
-            <div className="bg-[#42E8E0] brutal-border brutal-shadow-lg p-6 min-h-[200px] flex flex-col justify-between relative transform -rotate-1 hover:rotate-0 hover:-translate-y-1.5 transition-all">
-              <div className="w-3.5 h-3.5 rounded-full bg-[#121316] absolute top-3 left-1/2 -translate-x-1/2"></div>
-              <div>
-                <span className="font-mono-code text-[11px] font-bold uppercase opacity-80">Modern AI</span>
-                <h3 className="font-heading font-extrabold text-xl text-[#121316] mt-2 mb-1">Generative AI</h3>
-                <p className="text-xs sm:text-[13px] font-semibold text-[#222] leading-relaxed">
-                  Prompt engineering, multimodal model integration, Gemini API integration, and intelligent assistants.
-                </p>
-              </div>
-              <div className="inline-block self-start font-mono-code text-[11px] font-bold bg-white/80 border border-[#121316] px-2 py-0.5 mt-3">
-                Gemini API &bull; LLMs
-              </div>
-            </div>
-
-            {/* Note 4: Mint */}
-            <div className="bg-[#62E89D] brutal-border brutal-shadow-lg p-6 min-h-[200px] flex flex-col justify-between relative transform rotate-1.5 hover:rotate-0 hover:-translate-y-1.5 transition-all">
-              <div className="w-3.5 h-3.5 rounded-full bg-[#121316] absolute top-3 left-1/2 -translate-x-1/2"></div>
-              <div>
-                <span className="font-mono-code text-[11px] font-bold uppercase opacity-80">Scientific Stack</span>
-                <h3 className="font-heading font-extrabold text-xl text-[#121316] mt-2 mb-1">Data Analytics & Math</h3>
-                <p className="text-xs sm:text-[13px] font-semibold text-[#222] leading-relaxed">
-                  Data wrangling, statistical analysis, feature engineering, and high-impact visual exploration.
-                </p>
-              </div>
-              <div className="inline-block self-start font-mono-code text-[11px] font-bold bg-white/80 border border-[#121316] px-2 py-0.5 mt-3">
-                NumPy &bull; Pandas &bull; Matplotlib
-              </div>
-            </div>
-
-            {/* Note 5: Purple */}
-            <div className="bg-[#C497FF] brutal-border brutal-shadow-lg p-6 min-h-[200px] flex flex-col justify-between relative transform -rotate-2 hover:rotate-0 hover:-translate-y-1.5 transition-all">
-              <div className="w-3.5 h-3.5 rounded-full bg-[#121316] absolute top-3 left-1/2 -translate-x-1/2"></div>
-              <div>
-                <span className="font-mono-code text-[11px] font-bold uppercase opacity-80">Languages</span>
-                <h3 className="font-heading font-extrabold text-xl text-[#121316] mt-2 mb-1">Polyglot Dev</h3>
-                <p className="text-xs sm:text-[13px] font-semibold text-[#222] leading-relaxed">
-                  Fluent in Python, C, C++, Java, Julia, and R for data science and systems engineering.
-                </p>
-              </div>
-              <div className="inline-block self-start font-mono-code text-[11px] font-bold bg-white/80 border border-[#121316] px-2 py-0.5 mt-3">
-                Python &bull; C++ &bull; Java &bull; Julia &bull; R
-              </div>
-            </div>
-
-            {/* Note 6: Orange */}
-            <div className="bg-[#FF7B39] brutal-border brutal-shadow-lg p-6 min-h-[200px] flex flex-col justify-between relative transform rotate-1 hover:rotate-0 hover:-translate-y-1.5 transition-all text-white">
-              <div className="w-3.5 h-3.5 rounded-full bg-[#121316] absolute top-3 left-1/2 -translate-x-1/2"></div>
-              <div>
-                <span className="font-mono-code text-[11px] font-bold uppercase opacity-90 text-white">Leadership & Tooling</span>
-                <h3 className="font-heading font-extrabold text-xl text-white mt-2 mb-1">Problem-Solving</h3>
-                <p className="text-xs sm:text-[13px] font-semibold text-white/90 leading-relaxed">
-                  Agile workflows, team collaboration, technical communication, and event co-ordination.
-                </p>
-              </div>
-              <div className="inline-block self-start font-mono-code text-[11px] font-bold bg-black/40 text-white border border-white/50 px-2 py-0.5 mt-3">
-                Git &bull; Teamwork &bull; Organizing
-              </div>
-            </div>
+            {[
+              {
+                bg: "bg-[#FF85A2]",
+                rotateInit: -4,
+                rotateRest: -1,
+                tag: "Core Engineering",
+                title: "Machine Learning",
+                desc: "Predictive modeling, regression, supervised & unsupervised learning, model tuning and evaluation.",
+                pill: "Scikit-Learn • Py",
+                pillBg: "bg-white/80"
+              },
+              {
+                bg: "bg-[#FFE033]",
+                rotateInit: 4,
+                rotateRest: 1,
+                tag: "Specialization",
+                title: "Natural Language Processing",
+                desc: "Text processing, semantic analysis, tokenization, embeddings, and conversational AI architecture.",
+                pill: "Transformers • NLP",
+                pillBg: "bg-white/80"
+              },
+              {
+                bg: "bg-[#42E8E0]",
+                rotateInit: -4,
+                rotateRest: -1,
+                tag: "Modern AI",
+                title: "Generative AI",
+                desc: "Prompt engineering, multimodal model integration, Gemini API integration, and intelligent assistants.",
+                pill: "Gemini API • LLMs",
+                pillBg: "bg-white/80"
+              },
+              {
+                bg: "bg-[#62E89D]",
+                rotateInit: 4,
+                rotateRest: 1.5,
+                tag: "Scientific Stack",
+                title: "Data Analytics & Math",
+                desc: "Data wrangling, statistical analysis, feature engineering, and high-impact visual exploration.",
+                pill: "NumPy • Pandas • Matplotlib",
+                pillBg: "bg-white/80"
+              },
+              {
+                bg: "bg-[#C497FF]",
+                rotateInit: -5,
+                rotateRest: -2,
+                tag: "Languages",
+                title: "Polyglot Dev",
+                desc: "Fluent in Python, C, C++, Java, Julia, and R for data science and systems engineering.",
+                pill: "Python • C++ • Java • Julia • R",
+                pillBg: "bg-white/80"
+              },
+              {
+                bg: "bg-[#FF7B39]",
+                rotateInit: 4,
+                rotateRest: 1,
+                textColor: "text-white",
+                tag: "Leadership & Tooling",
+                title: "Problem-Solving",
+                desc: "Agile workflows, team collaboration, technical communication, and event co-ordination.",
+                pill: "Git • Teamwork • Organizing",
+                pillBg: "bg-black/40 text-white border-white/50"
+              }
+            ].map((note, idx) => (
+              <motion.div 
+                key={note.title}
+                initial={{ opacity: 0, y: 40, rotate: note.rotateInit, scale: 0.9 }}
+                whileInView={{ opacity: 1, y: 0, rotate: note.rotateRest, scale: 1 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ 
+                  type: "spring", 
+                  stiffness: 110, 
+                  damping: 14, 
+                  delay: idx * 0.08 
+                }}
+                whileHover={{ 
+                  scale: 1.04, 
+                  rotate: 0, 
+                  y: -6,
+                  transition: { duration: 0.2 } 
+                }}
+                className={`${note.bg} brutal-border brutal-shadow-lg p-6 min-h-[200px] flex flex-col justify-between relative cursor-default ${note.textColor || "text-[#121316]"}`}
+              >
+                <div className="w-3.5 h-3.5 rounded-full bg-[#121316] absolute top-3 left-1/2 -translate-x-1/2"></div>
+                <div>
+                  <span className={`font-mono-code text-[11px] font-bold uppercase opacity-80 ${note.textColor || ""}`}>{note.tag}</span>
+                  <h3 className={`font-heading font-extrabold text-xl mt-2 mb-1 ${note.textColor || "text-[#121316]"}`}>{note.title}</h3>
+                  <p className={`text-xs sm:text-[13px] font-semibold leading-relaxed ${note.textColor ? "text-white/90" : "text-[#222]"}`}>
+                    {note.desc}
+                  </p>
+                </div>
+                <div className={`inline-block self-start font-mono-code text-[11px] font-bold border border-[#121316] px-2 py-0.5 mt-3 ${note.pillBg}`}>
+                  {note.pill}
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
@@ -428,17 +500,30 @@ export default function Home() {
       {/* Red Rust Section: "Projects I'm proud of." */}
       <section id="projects" className="py-20 px-6 brutal-border border-t-0 border-l-0 border-r-0 bg-[#D94625] text-white">
         <div className="max-w-[1200px] mx-auto">
-          <div className="brutal-badge text-[#121316] mb-3">PORTFOLIO WORK</div>
-          <h2 className="font-heading font-extrabold text-3xl sm:text-4xl text-white tracking-tight">
-            Projects I'm proud of.
-          </h2>
-          <p className="text-sm sm:text-base text-[#FFE6E0] mt-1 max-w-xl">
-            Selected academic and personal projects demonstrating AI pipeline development, API orchestration, and mobile systems engineering.
-          </p>
+          <motion.div 
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4 }}
+          >
+            <div className="brutal-badge text-[#121316] mb-3">PORTFOLIO WORK</div>
+            <h2 className="font-heading font-extrabold text-3xl sm:text-4xl text-white tracking-tight">
+              Projects I'm proud of.
+            </h2>
+            <p className="text-sm sm:text-base text-[#FFE6E0] mt-1 max-w-xl">
+              Selected academic and personal projects demonstrating AI pipeline development, API orchestration, and mobile systems engineering.
+            </p>
+          </motion.div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-10">
             {/* Project 1 */}
-            <div className="bg-white text-[#121316] brutal-border brutal-shadow-lg hover:-translate-y-1 transition-all overflow-hidden">
+            <motion.div 
+              initial={{ opacity: 0, y: 40, scale: 0.96 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ ...neoSpring, delay: 0.1 }}
+              className="bg-white text-[#121316] brutal-border brutal-shadow-lg hover:-translate-y-1.5 transition-all overflow-hidden"
+            >
               <div className="h-52 bg-gradient-to-br from-[#1A1F38] to-[#0F1222] p-6 text-white flex flex-col justify-between border-b-2 border-[#121316] relative">
                 <div className="brutal-badge self-start text-[#121316]">FEATURED PROJECT</div>
                 <div className="text-center my-auto">
@@ -470,10 +555,16 @@ export default function Home() {
                   </ul>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Project 2 */}
-            <div className="bg-white text-[#121316] brutal-border brutal-shadow-lg hover:-translate-y-1 transition-all overflow-hidden">
+            <motion.div 
+              initial={{ opacity: 0, y: 40, scale: 0.96 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ ...neoSpring, delay: 0.2 }}
+              className="bg-white text-[#121316] brutal-border brutal-shadow-lg hover:-translate-y-1.5 transition-all overflow-hidden"
+            >
               <div className="h-52 bg-gradient-to-br from-[#1C2C24] to-[#0E1A14] p-6 text-white flex flex-col justify-between border-b-2 border-[#121316] relative">
                 <div className="brutal-badge self-start text-[#121316] bg-[#42E8E0]">DATA & ML PIPELINES</div>
                 <div className="text-center my-auto">
@@ -505,7 +596,7 @@ export default function Home() {
                   </ul>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -513,7 +604,13 @@ export default function Home() {
       {/* Client Work Section (Placed between Projects and Workflow Methodology) */}
       <section id="client-work" className="py-20 px-6 brutal-border border-t-0 border-l-0 border-r-0 bg-[#FFFDF5]">
         <div className="max-w-[1200px] mx-auto">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
+          <motion.div 
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4 }}
+            className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10"
+          >
             <div>
               <div className="brutal-badge mb-3 bg-[#FFE033]">PRODUCTION PORTFOLIO</div>
               <h2 className="font-heading font-extrabold text-3xl sm:text-5xl text-[#121316] tracking-tight">
@@ -526,264 +623,133 @@ export default function Home() {
             <div className="font-mono-code text-xs font-bold text-[#888] bg-white border-2 border-[#121316] px-3.5 py-2 brutal-shadow-sm self-start sm:self-auto">
               4 Production Deployments
             </div>
-          </div>
+          </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Client 1: Chai Days */}
-            <div className="bg-white brutal-border brutal-shadow-lg flex flex-col justify-between hover:-translate-y-1.5 transition-all overflow-hidden group">
-              <div>
-                {/* Retro Window Bar */}
-                <div className="bg-[#121316] text-white px-3.5 py-2 flex items-center justify-between font-mono-code text-xs font-bold border-b-2 border-[#121316]">
-                  <span className="text-[#FFE033]">CHAIDAYS.VERCEL.APP</span>
-                  <div className="flex gap-1.5">
-                    <span className="w-2.5 h-2.5 border border-white bg-white/20 inline-block"></span>
-                    <span className="w-2.5 h-2.5 border border-white bg-white/20 inline-block"></span>
-                    <span className="w-2.5 h-2.5 border border-white bg-white/20 inline-block"></span>
-                  </div>
-                </div>
-
-                {/* Screenshot Preview */}
-                <div className="relative aspect-[16/10] w-full bg-[#1A1A1A] overflow-hidden border-b-2 border-[#121316]">
-                  <img
-                    src="/client-chaidays.png"
-                    alt="Chai Days Website Preview"
-                    className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
-                    loading="lazy"
-                  />
-                  <div className="absolute top-3 right-3 bg-[#121316] text-white font-mono-code text-[10px] font-extrabold px-2 py-0.5 border border-white">
-                    LIVE WEB APP
-                  </div>
-                </div>
-
-                {/* Body Content */}
-                <div className="p-6">
-                  <div className="flex items-start justify-between gap-3 mb-2">
-                    <div>
-                      <span className="font-mono-code text-[11px] font-bold uppercase text-[#D94625]">Food & Beverage Brand</span>
-                      <h3 className="font-heading font-extrabold text-2xl text-[#121316] mt-0.5">
-                        Chai Days
-                      </h3>
+            {[
+              {
+                name: "Chai Days",
+                domain: "CHAIDAYS.VERCEL.APP",
+                domainColor: "text-[#FFE033]",
+                badge: "LIVE WEB APP",
+                category: "Food & Beverage Brand",
+                catColor: "text-[#D94625]",
+                desc: "A modern, immersive digital experience designed for the contemporary ritual of tea culture. Built with sleek aesthetics, fast page performance, and smooth customer journey flows.",
+                img: "/client-chaidays.png",
+                link: "https://chaidays.vercel.app/",
+                tags: ["Next.js", "React", "Tailwind CSS", "Vercel", "Responsive UX"],
+                btnStyle: "brutal-btn"
+              },
+              {
+                name: "Easy Support Typing Services",
+                domain: "EASYSUPPORT.AE",
+                domainColor: "text-[#42E8E0]",
+                badge: "CORPORATE SERVICES",
+                category: "UAE PRO & Business Setup",
+                catColor: "text-[#3448C5]",
+                desc: "Corporate portal engineered for a UAE-based typing, PRO, visa clearance, and business formation enterprise. Designed for trust, rapid inquiry conversions, and clear service breakdowns.",
+                img: "/client-easysupport.png",
+                link: "https://www.easysupport.ae/",
+                tags: ["Business Portal", "SEO Optimization", "Lead Generation", "Corporate UI"],
+                btnStyle: "brutal-btn brutal-btn-white"
+              },
+              {
+                name: "Manasu Counselling Centre",
+                domain: "MANASUCOUNSELLINGCENTRE.COM",
+                domainColor: "text-[#62E89D]",
+                badge: "HEALTHCARE & WELLNESS",
+                category: "Mental Health & Wellness",
+                catColor: "text-[#3CB371]",
+                desc: "A compassionate, accessible healthcare platform for mental wellness therapy, counselling appointments, and specialist psychological guidance with empathetic, patient-centric design.",
+                img: "/client-manasu.png",
+                link: "https://www.manasucounsellingcentre.com/",
+                tags: ["Healthcare Platform", "Appointment UX", "Accessibility", "Patient Portal"],
+                btnStyle: "brutal-btn brutal-btn-white"
+              },
+              {
+                name: "Afana's Angel",
+                domain: "AFANASANGEL.COM",
+                domainColor: "text-[#FF85A2]",
+                badge: "HAUTE COUTURE & E-COMMERCE",
+                category: "Luxury Fashion & Abayas",
+                catColor: "text-[#C497FF]",
+                desc: "High-end luxury fashion and haute couture boutique e-commerce showcase featuring bespoke abayas, editorial photography catalogs, and seamless luxury brand storytelling.",
+                img: "/client-afanasangel.png",
+                link: "https://www.afanasangel.com/",
+                tags: ["E-Commerce", "Luxury Brand UI", "Product Showcase", "Mobile First"],
+                btnStyle: "brutal-btn"
+              }
+            ].map((client, idx) => (
+              <motion.div 
+                key={client.domain}
+                initial={{ opacity: 0, y: 40, scale: 0.96 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true, margin: "-70px" }}
+                transition={{ ...neoSpring, delay: idx * 0.12 }}
+                className="bg-white brutal-border brutal-shadow-lg flex flex-col justify-between hover:-translate-y-1.5 transition-all overflow-hidden group"
+              >
+                <div>
+                  {/* Retro Window Bar */}
+                  <div className="bg-[#121316] text-white px-3.5 py-2 flex items-center justify-between font-mono-code text-xs font-bold border-b-2 border-[#121316]">
+                    <span className={client.domainColor}>{client.domain}</span>
+                    <div className="flex gap-1.5">
+                      <span className="w-2.5 h-2.5 border border-white bg-white/20 inline-block"></span>
+                      <span className="w-2.5 h-2.5 border border-white bg-white/20 inline-block"></span>
+                      <span className="w-2.5 h-2.5 border border-white bg-white/20 inline-block"></span>
                     </div>
                   </div>
-                  <p className="text-sm text-[#4A4D55] leading-relaxed mt-2">
-                    A modern, immersive digital experience designed for the contemporary ritual of tea culture. Built with sleek aesthetics, fast page performance, and smooth customer journey flows.
-                  </p>
 
-                  <div className="flex flex-wrap gap-2 my-4">
-                    {["Next.js", "React", "Tailwind CSS", "Vercel", "Responsive UX"].map((tag) => (
-                      <span key={tag} className="bg-[#F1EFEA] border border-[#121316] font-mono-code text-[11px] font-bold px-2 py-0.5">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* Action Footer */}
-              <div className="p-6 pt-0">
-                <a
-                  href="https://chaidays.vercel.app/"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="brutal-btn w-full justify-center text-xs"
-                >
-                  <span>Visit Live Website</span>
-                  <ExternalLink className="w-3.5 h-3.5" />
-                </a>
-              </div>
-            </div>
-
-            {/* Client 2: Easy Support UAE */}
-            <div className="bg-white brutal-border brutal-shadow-lg flex flex-col justify-between hover:-translate-y-1.5 transition-all overflow-hidden group">
-              <div>
-                {/* Retro Window Bar */}
-                <div className="bg-[#121316] text-white px-3.5 py-2 flex items-center justify-between font-mono-code text-xs font-bold border-b-2 border-[#121316]">
-                  <span className="text-[#42E8E0]">EASYSUPPORT.AE</span>
-                  <div className="flex gap-1.5">
-                    <span className="w-2.5 h-2.5 border border-white bg-white/20 inline-block"></span>
-                    <span className="w-2.5 h-2.5 border border-white bg-white/20 inline-block"></span>
-                    <span className="w-2.5 h-2.5 border border-white bg-white/20 inline-block"></span>
-                  </div>
-                </div>
-
-                {/* Screenshot Preview */}
-                <div className="relative aspect-[16/10] w-full bg-[#1A1A1A] overflow-hidden border-b-2 border-[#121316]">
-                  <img
-                    src="/client-easysupport.png"
-                    alt="Easy Support Typing Services Preview"
-                    className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
-                    loading="lazy"
-                  />
-                  <div className="absolute top-3 right-3 bg-[#121316] text-white font-mono-code text-[10px] font-extrabold px-2 py-0.5 border border-white">
-                    CORPORATE SERVICES
-                  </div>
-                </div>
-
-                {/* Body Content */}
-                <div className="p-6">
-                  <div className="flex items-start justify-between gap-3 mb-2">
-                    <div>
-                      <span className="font-mono-code text-[11px] font-bold uppercase text-[#3448C5]">UAE PRO & Business Setup</span>
-                      <h3 className="font-heading font-extrabold text-2xl text-[#121316] mt-0.5">
-                        Easy Support Typing Services
-                      </h3>
+                  {/* Screenshot Preview */}
+                  <div className="relative aspect-[16/10] w-full bg-[#1A1A1A] overflow-hidden border-b-2 border-[#121316]">
+                    <img
+                      src={client.img}
+                      alt={`${client.name} Preview`}
+                      className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                    <div className="absolute top-3 right-3 bg-[#121316] text-white font-mono-code text-[10px] font-extrabold px-2 py-0.5 border border-white">
+                      {client.badge}
                     </div>
                   </div>
-                  <p className="text-sm text-[#4A4D55] leading-relaxed mt-2">
-                    Corporate portal engineered for a UAE-based typing, PRO, visa clearance, and business formation enterprise. Designed for trust, rapid inquiry conversions, and clear service breakdowns.
-                  </p>
 
-                  <div className="flex flex-wrap gap-2 my-4">
-                    {["Business Portal", "SEO Optimization", "Lead Generation", "Corporate UI"].map((tag) => (
-                      <span key={tag} className="bg-[#F1EFEA] border border-[#121316] font-mono-code text-[11px] font-bold px-2 py-0.5">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
+                  {/* Body Content */}
+                  <div className="p-6">
+                    <div className="flex items-start justify-between gap-3 mb-2">
+                      <div>
+                        <span className={`font-mono-code text-[11px] font-bold uppercase ${client.catColor}`}>{client.category}</span>
+                        <h3 className="font-heading font-extrabold text-2xl text-[#121316] mt-0.5">
+                          {client.name}
+                        </h3>
+                      </div>
+                    </div>
+                    <p className="text-sm text-[#4A4D55] leading-relaxed mt-2">
+                      {client.desc}
+                    </p>
 
-              {/* Action Footer */}
-              <div className="p-6 pt-0">
-                <a
-                  href="https://www.easysupport.ae/"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="brutal-btn brutal-btn-white w-full justify-center text-xs"
-                >
-                  <span>Visit Live Website</span>
-                  <ExternalLink className="w-3.5 h-3.5" />
-                </a>
-              </div>
-            </div>
-
-            {/* Client 3: Manasu Counselling Centre */}
-            <div className="bg-white brutal-border brutal-shadow-lg flex flex-col justify-between hover:-translate-y-1.5 transition-all overflow-hidden group">
-              <div>
-                {/* Retro Window Bar */}
-                <div className="bg-[#121316] text-white px-3.5 py-2 flex items-center justify-between font-mono-code text-xs font-bold border-b-2 border-[#121316]">
-                  <span className="text-[#62E89D]">MANASUCOUNSELLINGCENTRE.COM</span>
-                  <div className="flex gap-1.5">
-                    <span className="w-2.5 h-2.5 border border-white bg-white/20 inline-block"></span>
-                    <span className="w-2.5 h-2.5 border border-white bg-white/20 inline-block"></span>
-                    <span className="w-2.5 h-2.5 border border-white bg-white/20 inline-block"></span>
-                  </div>
-                </div>
-
-                {/* Screenshot Preview */}
-                <div className="relative aspect-[16/10] w-full bg-[#1A1A1A] overflow-hidden border-b-2 border-[#121316]">
-                  <img
-                    src="/client-manasu.png"
-                    alt="Manasu Counselling Centre Website Preview"
-                    className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
-                    loading="lazy"
-                  />
-                  <div className="absolute top-3 right-3 bg-[#121316] text-white font-mono-code text-[10px] font-extrabold px-2 py-0.5 border border-white">
-                    HEALTHCARE & WELLNESS
-                  </div>
-                </div>
-
-                {/* Body Content */}
-                <div className="p-6">
-                  <div className="flex items-start justify-between gap-3 mb-2">
-                    <div>
-                      <span className="font-mono-code text-[11px] font-bold uppercase text-[#3CB371]">Mental Health & Wellness</span>
-                      <h3 className="font-heading font-extrabold text-2xl text-[#121316] mt-0.5">
-                        Manasu Counselling Centre
-                      </h3>
+                    <div className="flex flex-wrap gap-2 my-4">
+                      {client.tags.map((tag) => (
+                        <span key={tag} className="bg-[#F1EFEA] border border-[#121316] font-mono-code text-[11px] font-bold px-2 py-0.5">
+                          {tag}
+                        </span>
+                      ))}
                     </div>
                   </div>
-                  <p className="text-sm text-[#4A4D55] leading-relaxed mt-2">
-                    A compassionate, accessible healthcare platform for mental wellness therapy, counselling appointments, and specialist psychological guidance with empathetic, patient-centric design.
-                  </p>
-
-                  <div className="flex flex-wrap gap-2 my-4">
-                    {["Healthcare Platform", "Appointment UX", "Accessibility", "Patient Portal"].map((tag) => (
-                      <span key={tag} className="bg-[#F1EFEA] border border-[#121316] font-mono-code text-[11px] font-bold px-2 py-0.5">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* Action Footer */}
-              <div className="p-6 pt-0">
-                <a
-                  href="https://www.manasucounsellingcentre.com/"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="brutal-btn brutal-btn-white w-full justify-center text-xs"
-                >
-                  <span>Visit Live Website</span>
-                  <ExternalLink className="w-3.5 h-3.5" />
-                </a>
-              </div>
-            </div>
-
-            {/* Client 4: Afana's Angel */}
-            <div className="bg-white brutal-border brutal-shadow-lg flex flex-col justify-between hover:-translate-y-1.5 transition-all overflow-hidden group">
-              <div>
-                {/* Retro Window Bar */}
-                <div className="bg-[#121316] text-white px-3.5 py-2 flex items-center justify-between font-mono-code text-xs font-bold border-b-2 border-[#121316]">
-                  <span className="text-[#FF85A2]">AFANASANGEL.COM</span>
-                  <div className="flex gap-1.5">
-                    <span className="w-2.5 h-2.5 border border-white bg-white/20 inline-block"></span>
-                    <span className="w-2.5 h-2.5 border border-white bg-white/20 inline-block"></span>
-                    <span className="w-2.5 h-2.5 border border-white bg-white/20 inline-block"></span>
-                  </div>
                 </div>
 
-                {/* Screenshot Preview */}
-                <div className="relative aspect-[16/10] w-full bg-[#1A1A1A] overflow-hidden border-b-2 border-[#121316]">
-                  <img
-                    src="/client-afanasangel.png"
-                    alt="Afana's Angel Luxury Abayas Website Preview"
-                    className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
-                    loading="lazy"
-                  />
-                  <div className="absolute top-3 right-3 bg-[#121316] text-white font-mono-code text-[10px] font-extrabold px-2 py-0.5 border border-white">
-                    HAUTE COUTURE & E-COMMERCE
-                  </div>
+                {/* Action Footer */}
+                <div className="p-6 pt-0">
+                  <a
+                    href={client.link}
+                    target="_blank"
+                    rel="noreferrer"
+                    className={`${client.btnStyle} w-full justify-center text-xs`}
+                  >
+                    <span>Visit Live Website</span>
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  </a>
                 </div>
-
-                {/* Body Content */}
-                <div className="p-6">
-                  <div className="flex items-start justify-between gap-3 mb-2">
-                    <div>
-                      <span className="font-mono-code text-[11px] font-bold uppercase text-[#C497FF]">Luxury Fashion & Abayas</span>
-                      <h3 className="font-heading font-extrabold text-2xl text-[#121316] mt-0.5">
-                        Afana's Angel
-                      </h3>
-                    </div>
-                  </div>
-                  <p className="text-sm text-[#4A4D55] leading-relaxed mt-2">
-                    High-end luxury fashion and haute couture boutique e-commerce showcase featuring bespoke abayas, editorial photography catalogs, and seamless luxury brand storytelling.
-                  </p>
-
-                  <div className="flex flex-wrap gap-2 my-4">
-                    {["E-Commerce", "Luxury Brand UI", "Product Showcase", "Mobile First"].map((tag) => (
-                      <span key={tag} className="bg-[#F1EFEA] border border-[#121316] font-mono-code text-[11px] font-bold px-2 py-0.5">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* Action Footer */}
-              <div className="p-6 pt-0">
-                <a
-                  href="https://www.afanasangel.com/"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="brutal-btn w-full justify-center text-xs"
-                >
-                  <span>Visit Live Website</span>
-                  <ExternalLink className="w-3.5 h-3.5" />
-                </a>
-              </div>
-            </div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
@@ -791,13 +757,20 @@ export default function Home() {
       {/* Green Steps Section: "From problem to production." */}
       <section className="py-20 px-6 brutal-border border-t-0 border-l-0 border-r-0 bg-[#3CB371] text-white">
         <div className="max-w-[1200px] mx-auto">
-          <div className="brutal-badge bg-white text-[#121316] mb-3">WORKFLOW METHODOLOGY</div>
-          <h2 className="font-heading font-extrabold text-3xl sm:text-4xl text-white tracking-tight">
-            From problem to production.
-          </h2>
-          <p className="text-sm sm:text-base text-[#E2F7EB] mt-1 max-w-xl">
-            How I systematically approach an AI/ML engineering challenge from first principles to deployment.
-          </p>
+          <motion.div 
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4 }}
+          >
+            <div className="brutal-badge bg-white text-[#121316] mb-3">WORKFLOW METHODOLOGY</div>
+            <h2 className="font-heading font-extrabold text-3xl sm:text-4xl text-white tracking-tight">
+              From problem to production.
+            </h2>
+            <p className="text-sm sm:text-base text-[#E2F7EB] mt-1 max-w-xl">
+              How I systematically approach an AI/ML engineering challenge from first principles to deployment.
+            </p>
+          </motion.div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-10">
             {[
@@ -826,7 +799,15 @@ export default function Home() {
                 tag: "React Native • Cloud API"
               }
             ].map((s, idx) => (
-              <div key={idx} className="bg-white text-[#121316] brutal-border brutal-shadow p-5 flex flex-col justify-between">
+              <motion.div 
+                key={idx}
+                initial={{ opacity: 0, y: 35 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ ...neoSpring, delay: idx * 0.1 }}
+                whileHover={{ y: -4, transition: { duration: 0.15 } }}
+                className="bg-white text-[#121316] brutal-border brutal-shadow p-5 flex flex-col justify-between"
+              >
                 <div>
                   <span className="font-mono-code font-extrabold text-xs uppercase bg-[#FFE033] px-2 py-0.5 border border-[#121316] inline-block mb-3">
                     {s.step}
@@ -839,7 +820,7 @@ export default function Home() {
                 <div className="font-mono-code text-[11px] font-bold text-[#888] mt-4">
                   {s.tag}
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -848,17 +829,30 @@ export default function Home() {
       {/* Bento Grid: Education & Credentials */}
       <section id="experience" className="py-20 px-6 brutal-border border-t-0 border-l-0 border-r-0 bg-[#FAF8F2]">
         <div className="max-w-[1200px] mx-auto">
-          <div className="brutal-badge mb-3">ACADEMICS & MILESTONES</div>
-          <h2 className="font-heading font-extrabold text-3xl sm:text-4xl text-[#121316] tracking-tight">
-            Education & Credentials in the wild.
-          </h2>
-          <p className="text-sm sm:text-base text-[#555] mt-1">
-            Verified qualifications, academic foundations, and key community milestones.
-          </p>
+          <motion.div 
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4 }}
+          >
+            <div className="brutal-badge mb-3">ACADEMICS & MILESTONES</div>
+            <h2 className="font-heading font-extrabold text-3xl sm:text-4xl text-[#121316] tracking-tight">
+              Education & Credentials in the wild.
+            </h2>
+            <p className="text-sm sm:text-base text-[#555] mt-1">
+              Verified qualifications, academic foundations, and key community milestones.
+            </p>
+          </motion.div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 mt-10">
             {/* Degree Card */}
-            <div className="lg:col-span-8 bg-white brutal-border brutal-shadow-lg p-6 sm:p-8">
+            <motion.div 
+              initial={{ opacity: 0, y: 35 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ ...neoSpring, delay: 0.1 }}
+              className="lg:col-span-8 bg-white brutal-border brutal-shadow-lg p-6 sm:p-8 hover:-translate-y-1 transition-all"
+            >
               <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
                 <div>
                   <span className="brutal-badge bg-[#FFE033]">2023 - 2027</span>
@@ -877,10 +871,16 @@ export default function Home() {
               <p className="text-sm text-[#444] mt-4 leading-relaxed">
                 Rigorous coursework covering machine learning architectures, statistical computing, algorithm design, data structures, neural networks, and generative AI systems.
               </p>
-            </div>
+            </motion.div>
 
             {/* Schooling Card */}
-            <div className="lg:col-span-4 bg-[#FFFDF5] brutal-border brutal-shadow-lg p-6">
+            <motion.div 
+              initial={{ opacity: 0, y: 35 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ ...neoSpring, delay: 0.2 }}
+              className="lg:col-span-4 bg-[#FFFDF5] brutal-border brutal-shadow-lg p-6 hover:-translate-y-1 transition-all"
+            >
               <span className="brutal-badge bg-[#42E8E0]">FOUNDATIONS</span>
               <h3 className="font-heading font-bold text-lg text-[#121316] mt-2">
                 Sree Gokulam Public School, Calicut
@@ -895,10 +895,16 @@ export default function Home() {
                   <div className="font-mono-code text-xs text-[#555]">Score: 80%</div>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Conference Achievement Card */}
-            <div className="lg:col-span-6 bg-[#FAF5FF] brutal-border brutal-shadow-lg overflow-hidden flex flex-col justify-between">
+            <motion.div 
+              initial={{ opacity: 0, y: 35 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ ...neoSpring, delay: 0.15 }}
+              className="lg:col-span-6 bg-[#FAF5FF] brutal-border brutal-shadow-lg overflow-hidden flex flex-col justify-between hover:-translate-y-1 transition-all"
+            >
               <div className="bg-[#FF85A2] text-[#121316] px-4 py-2 brutal-border border-t-0 border-l-0 border-r-0 flex justify-between font-mono-code text-xs font-bold">
                 <span>ACHIEVEMENT // AIHC_2025</span>
                 <span>NIT CALICUT</span>
@@ -914,10 +920,16 @@ export default function Home() {
               <div className="px-6 pb-5 pt-0 font-mono-code text-xs font-bold text-[#888]">
                 Host: National Institute of Technology Calicut
               </div>
-            </div>
+            </motion.div>
 
             {/* Hackathon Coordinator Card */}
-            <div className="lg:col-span-6 bg-[#F0FFF4] brutal-border brutal-shadow-lg overflow-hidden flex flex-col justify-between">
+            <motion.div 
+              initial={{ opacity: 0, y: 35 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ ...neoSpring, delay: 0.25 }}
+              className="lg:col-span-6 bg-[#F0FFF4] brutal-border brutal-shadow-lg overflow-hidden flex flex-col justify-between hover:-translate-y-1 transition-all"
+            >
               <div className="bg-[#FFE033] text-[#121316] px-4 py-2 brutal-border border-t-0 border-l-0 border-r-0 flex justify-between font-mono-code text-xs font-bold">
                 <span>LEADERSHIP // MATRIX_FUSION_4.0</span>
                 <span>NATIONAL HACKATHON</span>
@@ -933,7 +945,7 @@ export default function Home() {
               <div className="px-6 pb-5 pt-0 font-mono-code text-xs font-bold text-[#888]">
                 Role: Student Organizing Coordinator
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -941,41 +953,62 @@ export default function Home() {
       {/* Purple Section: "What collaborators say." */}
       <section className="py-20 px-6 brutal-border border-t-0 border-l-0 border-r-0 bg-[#C497FF]">
         <div className="max-w-[1200px] mx-auto">
-          <div className="brutal-badge bg-[#121316] text-white mb-3">COLLABORATION & IMPACT</div>
-          <h2 className="font-heading font-extrabold text-3xl sm:text-4xl text-[#121316] tracking-tight">
-            What collaborators say.
-          </h2>
-          <p className="text-sm sm:text-base text-[#2D1A4A] mt-1">
-            Feedback from peer engineers, hackathon participants, and faculty mentors.
-          </p>
+          <motion.div 
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4 }}
+          >
+            <div className="brutal-badge bg-[#121316] text-white mb-3">COLLABORATION & IMPACT</div>
+            <h2 className="font-heading font-extrabold text-3xl sm:text-4xl text-[#121316] tracking-tight">
+              What collaborators say.
+            </h2>
+            <p className="text-sm sm:text-base text-[#2D1A4A] mt-1">
+              Feedback from peer engineers, hackathon participants, and faculty mentors.
+            </p>
+          </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
-            <div className="bg-[#FF99B8] brutal-border brutal-shadow-lg p-6 flex flex-col justify-between transform -rotate-1 hover:rotate-0 transition-all">
-              <p className="text-sm font-semibold leading-relaxed text-[#121316]">
-                "Ahal demonstrated remarkable initiative integrating the Gemini API with React Native for the supermarket project. His grasp of demand forecasting algorithms is exceptional for an engineering student."
-              </p>
-              <div className="mt-5 pt-3 border-t-2 border-[#121316] font-mono-code text-xs font-extrabold text-[#121316]">
-                Project Mentor &bull; AI Lab
-              </div>
-            </div>
-
-            <div className="bg-[#FFE853] brutal-border brutal-shadow-lg p-6 flex flex-col justify-between transform rotate-1 hover:rotate-0 transition-all">
-              <p className="text-sm font-semibold leading-relaxed text-[#121316]">
-                "Co-ordinating Matrix Fusion 4.0 alongside Ahal was seamless. He brings crystal-clear problem-solving, calm technical communication, and dedication to every challenge."
-              </p>
-              <div className="mt-5 pt-3 border-t-2 border-[#121316] font-mono-code text-xs font-extrabold text-[#121316]">
-                Organizing Lead &bull; Matrix Fusion
-              </div>
-            </div>
-
-            <div className="bg-[#6CE8C3] brutal-border brutal-shadow-lg p-6 flex flex-col justify-between transform -rotate-0.5 hover:rotate-0 transition-all">
-              <p className="text-sm font-semibold leading-relaxed text-[#121316]">
-                "Ahal's curiosity at the NIT Calicut AIHC conference was infectious. He is constantly upskilling in cutting-edge ML stacks and delivers clean, well-structured code."
-              </p>
-              <div className="mt-5 pt-3 border-t-2 border-[#121316] font-mono-code text-xs font-extrabold text-[#121316]">
-                Peer Researcher &bull; AIHC 2025
-              </div>
-            </div>
+            {[
+              {
+                bg: "bg-[#FF99B8]",
+                rotInit: -4,
+                rotRest: -1,
+                quote: "Ahal demonstrated remarkable initiative integrating the Gemini API with React Native for the supermarket project. His grasp of demand forecasting algorithms is exceptional for an engineering student.",
+                author: "Project Mentor • AI Lab"
+              },
+              {
+                bg: "bg-[#FFE853]",
+                rotInit: 4,
+                rotRest: 1,
+                quote: "Co-ordinating Matrix Fusion 4.0 alongside Ahal was seamless. He brings crystal-clear problem-solving, calm technical communication, and dedication to every challenge.",
+                author: "Organizing Lead • Matrix Fusion"
+              },
+              {
+                bg: "bg-[#6CE8C3]",
+                rotInit: -3,
+                rotRest: -0.5,
+                quote: "Ahal's curiosity at the NIT Calicut AIHC conference was infectious. He is constantly upskilling in cutting-edge ML stacks and delivers clean, well-structured code.",
+                author: "Peer Researcher • AIHC 2025"
+              }
+            ].map((rev, idx) => (
+              <motion.div 
+                key={rev.author}
+                initial={{ opacity: 0, y: 40, rotate: rev.rotInit }}
+                whileInView={{ opacity: 1, y: 0, rotate: rev.rotRest }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ ...neoSpring, delay: idx * 0.1 }}
+                whileHover={{ scale: 1.03, rotate: 0, y: -4, transition: { duration: 0.15 } }}
+                className={`${rev.bg} brutal-border brutal-shadow-lg p-6 flex flex-col justify-between`}
+              >
+                <p className="text-sm font-semibold leading-relaxed text-[#121316]">
+                  "{rev.quote}"
+                </p>
+                <div className="mt-5 pt-3 border-t-2 border-[#121316] font-mono-code text-xs font-extrabold text-[#121316]">
+                  {rev.author}
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
@@ -983,17 +1016,30 @@ export default function Home() {
       {/* Contact Section: "Want to work together?" */}
       <section id="contact" className="py-20 px-6 brutal-border border-t-0 border-l-0 border-r-0 bg-[#FDFBF7]">
         <div className="max-w-[1200px] mx-auto">
-          <div className="brutal-badge mb-3">GET IN TOUCH</div>
-          <h2 className="font-heading font-extrabold text-3xl sm:text-5xl text-[#121316] tracking-tight">
-            Want to work together?
-          </h2>
-          <p className="text-sm sm:text-base text-[#555] mt-1 max-w-xl">
-            Have an AI/ML opportunity or engineering project in mind? I'd love to hear about it. Let's make something you're proud to put your name on.
-          </p>
+          <motion.div 
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4 }}
+          >
+            <div className="brutal-badge mb-3">GET IN TOUCH</div>
+            <h2 className="font-heading font-extrabold text-3xl sm:text-5xl text-[#121316] tracking-tight">
+              Want to work together?
+            </h2>
+            <p className="text-sm sm:text-base text-[#555] mt-1 max-w-xl">
+              Have an AI/ML opportunity or engineering project in mind? I'd love to hear about it. Let's make something you're proud to put your name on.
+            </p>
+          </motion.div>
 
           <div className="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-8 mt-10">
             {/* Contact Window Form */}
-            <div className="bg-white brutal-border brutal-shadow-lg overflow-hidden">
+            <motion.div 
+              initial={{ opacity: 0, x: -35 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={neoSpring}
+              className="bg-white brutal-border brutal-shadow-lg overflow-hidden"
+            >
               <div className="bg-[#3448C5] text-white px-4 py-2.5 brutal-border border-t-0 border-l-0 border-r-0 flex items-center justify-between font-mono-code text-xs font-bold">
                 <span>CONTACT.EXE</span>
                 <div className="flex gap-1.5">
@@ -1070,17 +1116,27 @@ export default function Home() {
                 </div>
 
                 {submitStatus === "success" && (
-                  <div className="p-3.5 bg-[#D4EDDA] border-2 border-[#155724] font-mono-code text-xs font-bold text-[#155724]">
+                  <motion.div 
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="p-3.5 bg-[#D4EDDA] border-2 border-[#155724] font-mono-code text-xs font-bold text-[#155724]"
+                  >
                     ✓ Thank you! Your message has been sent directly to Ahal (ahalabduljaleel8@gmail.com). I will get back to you shortly.
-                  </div>
+                  </motion.div>
                 )}
               </form>
-            </div>
+            </motion.div>
 
             {/* Right Side Info Cards */}
             <div className="space-y-6">
               {/* Yellow Email Box */}
-              <div className="bg-[#FFE033] brutal-border brutal-shadow-lg p-6">
+              <motion.div 
+                initial={{ opacity: 0, x: 35 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{ ...neoSpring, delay: 0.1 }}
+                className="bg-[#FFE033] brutal-border brutal-shadow-lg p-6 hover:-translate-y-1 transition-all"
+              >
                 <span className="brutal-badge bg-white">EMAIL</span>
                 <div className="font-mono-code text-base sm:text-lg font-bold mt-2.5 break-all">
                   <a href="mailto:ahalabduljaleel8@gmail.com" className="hover:underline text-[#121316]">
@@ -1090,10 +1146,16 @@ export default function Home() {
                 <div className="font-mono-code text-xs font-bold text-[#333] mt-2">
                   Phone: +91 8547735911
                 </div>
-              </div>
+              </motion.div>
 
               {/* Mint Status Box */}
-              <div className="bg-[#62E89D] brutal-border brutal-shadow-lg p-6">
+              <motion.div 
+                initial={{ opacity: 0, x: 35 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{ ...neoSpring, delay: 0.2 }}
+                className="bg-[#62E89D] brutal-border brutal-shadow-lg p-6 hover:-translate-y-1 transition-all"
+              >
                 <div className="flex items-center gap-2 mb-2">
                   <span className="w-2.5 h-2.5 rounded-full bg-[#009944] status-dot-pulse"></span>
                   <span className="font-mono-code text-[11px] font-extrabold uppercase">
@@ -1103,10 +1165,16 @@ export default function Home() {
                 <p className="text-xs sm:text-sm font-semibold text-[#121316] leading-relaxed">
                   Actively seeking entry-level AI Engineer, ML Developer, and Data Science opportunities. Open to on-site and remote positions.
                 </p>
-              </div>
+              </motion.div>
 
               {/* White Socials Box */}
-              <div className="bg-white brutal-border brutal-shadow-lg p-6">
+              <motion.div 
+                initial={{ opacity: 0, x: 35 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{ ...neoSpring, delay: 0.3 }}
+                className="bg-white brutal-border brutal-shadow-lg p-6 hover:-translate-y-1 transition-all"
+              >
                 <span className="brutal-badge bg-[#FF85A2]">SOCIAL PROFILES</span>
                 <div className="flex flex-col gap-2.5 mt-3">
                   <a 
@@ -1128,7 +1196,7 @@ export default function Home() {
                     GitHub: github.com/ahal0309
                   </a>
                 </div>
-              </div>
+              </motion.div>
             </div>
           </div>
         </div>
@@ -1137,7 +1205,13 @@ export default function Home() {
       {/* FAQ Accordion Section */}
       <section id="faq" className="py-20 px-6 brutal-border border-t-0 border-l-0 border-r-0 bg-white">
         <div className="max-w-[820px] mx-auto">
-          <div className="text-center mb-10">
+          <motion.div 
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4 }}
+            className="text-center mb-10"
+          >
             <div className="brutal-badge mb-2">COMMON INQUIRIES</div>
             <h2 className="font-heading font-extrabold text-3xl sm:text-4xl text-[#121316]">
               Frequently Asked Questions
@@ -1145,7 +1219,7 @@ export default function Home() {
             <p className="text-sm text-[#666] mt-1">
               Quick answers about my skills, graduation timeline, and collaboration model.
             </p>
-          </div>
+          </motion.div>
 
           <div className="space-y-4">
             {[
@@ -1168,12 +1242,16 @@ export default function Home() {
             ].map((faq, idx) => {
               const isOpen = activeFaq === idx;
               return (
-                <div 
+                <motion.div 
                   key={idx} 
-                  className="bg-white brutal-border brutal-shadow hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all cursor-pointer"
+                  initial={{ opacity: 0, y: 25 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-40px" }}
+                  transition={{ ...neoSpring, delay: idx * 0.08 }}
+                  className="bg-white brutal-border brutal-shadow hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all cursor-pointer overflow-hidden"
                   onClick={() => toggleFaq(idx)}
                 >
-                  <div className="p-4 sm:p-5 flex items-center justify-between font-heading font-bold text-base sm:text-lg">
+                  <div className="p-4 sm:p-5 flex items-center justify-between font-heading font-bold text-base sm:text-lg select-none">
                     <span>{faq.q}</span>
                     <div 
                       className={`w-7 h-7 border-2 border-[#121316] flex items-center justify-center font-mono-code text-sm font-extrabold brutal-shadow-sm transition-transform duration-200 shrink-0 ml-4 ${
@@ -1183,12 +1261,20 @@ export default function Home() {
                       +
                     </div>
                   </div>
-                  {isOpen && (
-                    <div className="px-4 sm:px-5 pb-5 pt-1 text-sm text-[#444] border-t border-dashed border-[#CCD] leading-relaxed">
-                      {faq.a}
-                    </div>
-                  )}
-                </div>
+                  <AnimatePresence>
+                    {isOpen && (
+                      <motion.div 
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.25, ease: "easeInOut" }}
+                        className="px-4 sm:px-5 pb-5 pt-1 text-sm text-[#444] border-t border-dashed border-[#CCD] leading-relaxed"
+                      >
+                        {faq.a}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
               );
             })}
           </div>
@@ -1213,6 +1299,7 @@ export default function Home() {
               <li><a href="#about" className="hover:text-white hover:underline">About & CGPA</a></li>
               <li><a href="#skills" className="hover:text-white hover:underline">Skills & Expertise</a></li>
               <li><a href="#projects" className="hover:text-white hover:underline">Supermarket AI Project</a></li>
+              <li><a href="#client-work" className="hover:text-white hover:underline">Client Work</a></li>
               <li><a href="#experience" className="hover:text-white hover:underline">Education & Milestones</a></li>
               <li><a href="#contact" className="hover:text-white hover:underline">Contact</a></li>
             </ul>
