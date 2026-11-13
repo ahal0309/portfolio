@@ -218,8 +218,7 @@ export default function Home() {
         <div className="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-[360px_1fr] gap-10 items-start">
           {/* Left Column Graphic Window */}
           <div className="bg-[#121316] brutal-border brutal-shadow-lg overflow-hidden">
-            <div className="bg-[#121316] text-white px-3.5 py-2 flex items-center justify-between font-mono-code text-xs font-bold border-b-2 border-white/20">
-              <span>PORTRAIT_AHAL.JPG</span>
+            <div className="bg-[#121316] text-white px-3.5 py-2 flex items-center justify-end font-mono-code text-xs font-bold border-b-2 border-white/20">
               <div className="flex gap-1.5">
                 <span className="w-2.5 h-2.5 border border-white bg-white/20 inline-block"></span>
                 <span className="w-2.5 h-2.5 border border-white bg-white/20 inline-block"></span>
