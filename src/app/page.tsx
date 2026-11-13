@@ -38,234 +38,103 @@ const neoSpring = {
   mass: 0.8,
 };
 
-// Interactive Canvas Component for Hero Background (AI Neural Constellation + Brutalist Matrix)
+// Interactive Floating Retro-Brutalist Badges & Geometric Shapes in Hero Section
 function HeroInteractiveBackground() {
-  const canvasRef = React.useRef<HTMLCanvasElement | null>(null);
+  const containerRef = React.useRef<HTMLDivElement | null>(null);
+  const [mousePos, setMousePos] = React.useState({ x: 0, y: 0 });
 
-  React.useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    setMousePos({ x, y });
+  };
 
-    let animationFrameId: number;
-    let width = (canvas.width = canvas.parentElement?.offsetWidth || window.innerWidth);
-    let height = (canvas.height = canvas.parentElement?.offsetHeight || 600);
-
-    const handleResize = () => {
-      if (!canvas || !canvas.parentElement) return;
-      width = canvas.width = canvas.parentElement.offsetWidth;
-      height = canvas.height = canvas.parentElement.offsetHeight;
-    };
-    window.addEventListener("resize", handleResize);
-
-    // Track mouse with smoothing
-    const mouse = { x: -1000, y: -1000, targetX: -1000, targetY: -1000, active: false };
-
-    const handleMouseMove = (e: MouseEvent) => {
-      const rect = canvas.getBoundingClientRect();
-      mouse.targetX = e.clientX - rect.left;
-      mouse.targetY = e.clientY - rect.top;
-      mouse.active = true;
-    };
-
-    const handleMouseLeave = () => {
-      mouse.active = false;
-      mouse.targetX = -1000;
-      mouse.targetY = -1000;
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-    document.addEventListener("mouseleave", handleMouseLeave);
-
-    // Nodes representing AI tokens, weights & brutalist matrix points
-    interface Node {
-      x: number;
-      y: number;
-      vx: number;
-      vy: number;
-      baseRadius: number;
-      kind: "dot" | "cross" | "node";
-      color: string;
-      label?: string;
-    }
-
-    const techTags = ["GPT", "PYTORCH", "NLP", "YOLO", "FASTAPI", "CNN", "LLM", "AGENT", "TENSOR", "GEMINI"];
-    const colors = ["#121316", "#3448C5", "#FF5C35", "#16A34A", "#121316"];
-    
-    // Create ~38 nodes
-    const nodeCount = 36;
-    const nodes: Node[] = [];
-
-    for (let i = 0; i < nodeCount; i++) {
-      const kind = i % 7 === 0 ? "cross" : i % 3 === 0 ? "node" : "dot";
-      nodes.push({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.55,
-        vy: (Math.random() - 0.5) * 0.55,
-        baseRadius: kind === "node" ? 4.5 : 2.5,
-        kind,
-        color: colors[i % colors.length],
-        label: i < techTags.length ? techTags[i] : undefined,
-      });
-    }
-
-    const render = () => {
-      ctx.clearRect(0, 0, width, height);
-
-      // Smooth mouse movement
-      mouse.x += (mouse.targetX - mouse.x) * 0.15;
-      mouse.y += (mouse.targetY - mouse.y) * 0.15;
-
-      // Update node positions
-      for (let i = 0; i < nodes.length; i++) {
-        const n = nodes[i];
-        n.x += n.vx;
-        n.y += n.vy;
-
-        // Bounce off canvas boundaries
-        if (n.x < 10) { n.x = 10; n.vx *= -1; }
-        if (n.x > width - 10) { n.x = width - 10; n.vx *= -1; }
-        if (n.y < 10) { n.y = 10; n.vy *= -1; }
-        if (n.y > height - 10) { n.y = height - 10; n.vy *= -1; }
-
-        // Cursor magnetic gravity / avoidance repulsion
-        if (mouse.active) {
-          const dx = n.x - mouse.x;
-          const dy = n.y - mouse.y;
-          const dist = Math.hypot(dx, dy);
-          const maxDist = 170;
-          if (dist < maxDist && dist > 0) {
-            const force = (1 - dist / maxDist) * 1.5;
-            n.x += (dx / dist) * force * 1.8;
-            n.y += (dy / dist) * force * 1.8;
-          }
-        }
-      }
-
-      // Draw connections between nearby nodes (Neural Synapses)
-      for (let i = 0; i < nodes.length; i++) {
-        for (let j = i + 1; j < nodes.length; j++) {
-          const n1 = nodes[i];
-          const n2 = nodes[j];
-          const dx = n1.x - n2.x;
-          const dy = n1.y - n2.y;
-          const dist = Math.hypot(dx, dy);
-          const connectDist = 135;
-
-          if (dist < connectDist) {
-            const alpha = (1 - dist / connectDist) * 0.35;
-            ctx.beginPath();
-            ctx.moveTo(n1.x, n1.y);
-            ctx.lineTo(n2.x, n2.y);
-            ctx.strokeStyle = `rgba(18, 19, 22, ${alpha})`;
-            ctx.lineWidth = 1;
-            ctx.stroke();
-          }
-        }
-
-        // Draw line from cursor to nearby nodes with electric neo accent
-        if (mouse.active) {
-          const dx = nodes[i].x - mouse.x;
-          const dy = nodes[i].y - mouse.y;
-          const dist = Math.hypot(dx, dy);
-          if (dist < 160) {
-            const alpha = (1 - dist / 160) * 0.75;
-            ctx.beginPath();
-            ctx.moveTo(mouse.x, mouse.y);
-            ctx.lineTo(nodes[i].x, nodes[i].y);
-            ctx.strokeStyle = `rgba(52, 72, 197, ${alpha})`;
-            ctx.lineWidth = 1.4;
-            ctx.setLineDash([4, 4]);
-            ctx.stroke();
-            ctx.setLineDash([]);
-          }
-        }
-      }
-
-      // Draw cursor interactive beacon ring when active
-      if (mouse.active && mouse.x > 0 && mouse.y > 0) {
-        ctx.save();
-        ctx.beginPath();
-        ctx.arc(mouse.x, mouse.y, 24, 0, Math.PI * 2);
-        ctx.strokeStyle = "rgba(255, 92, 53, 0.45)";
-        ctx.lineWidth = 2;
-        ctx.setLineDash([3, 3]);
-        ctx.stroke();
-
-        ctx.beginPath();
-        ctx.arc(mouse.x, mouse.y, 4, 0, Math.PI * 2);
-        ctx.fillStyle = "#FF5C35";
-        ctx.fill();
-        ctx.restore();
-      }
-
-      // Draw nodes
-      for (let i = 0; i < nodes.length; i++) {
-        const n = nodes[i];
-
-        if (n.kind === "cross") {
-          // Neo-brutalist '+' marker
-          ctx.save();
-          ctx.strokeStyle = n.color;
-          ctx.lineWidth = 2;
-          const size = 5;
-          ctx.beginPath();
-          ctx.moveTo(n.x - size, n.y);
-          ctx.lineTo(n.x + size, n.y);
-          ctx.moveTo(n.x, n.y - size);
-          ctx.lineTo(n.x, n.y + size);
-          ctx.stroke();
-          ctx.restore();
-        } else if (n.kind === "node") {
-          // Neural Node with border
-          ctx.save();
-          ctx.beginPath();
-          ctx.arc(n.x, n.y, n.baseRadius, 0, Math.PI * 2);
-          ctx.fillStyle = "#FFE033";
-          ctx.fill();
-          ctx.lineWidth = 1.8;
-          ctx.strokeStyle = "#121316";
-          ctx.stroke();
-
-          // Render micro tag for AI nodes
-          if (n.label) {
-            ctx.font = "bold 9px 'Courier New', monospace";
-            ctx.fillStyle = "#121316";
-            ctx.fillText(n.label, n.x + 8, n.y + 3);
-          }
-          ctx.restore();
-        } else {
-          // Simple matrix dot
-          ctx.save();
-          ctx.beginPath();
-          ctx.arc(n.x, n.y, n.baseRadius, 0, Math.PI * 2);
-          ctx.fillStyle = "rgba(18, 19, 22, 0.55)";
-          ctx.fill();
-          ctx.restore();
-        }
-      }
-
-      animationFrameId = requestAnimationFrame(render);
-    };
-
-    render();
-
-    return () => {
-      cancelAnimationFrame(animationFrameId);
-      window.removeEventListener("resize", handleResize);
-      window.removeEventListener("mousemove", handleMouseMove);
-      document.removeEventListener("mouseleave", handleMouseLeave);
-    };
-  }, []);
+  // Neo-brutalist interactive badges that visitors can drag around or watch react to mouse movement
+  const badges = [
+    { text: "⚡ PYTORCH", color: "bg-[#FFE033]", border: "border-[#121316]", defaultX: "78%", defaultY: "12%", depth: 32 },
+    { text: "🤖 GEMINI_2.5", color: "bg-[#42E8E0]", border: "border-[#121316]", defaultX: "84%", defaultY: "48%", depth: 25 },
+    { text: "🧠 NEURAL_NET", color: "bg-[#FF5C35] text-white", border: "border-[#121316]", defaultX: "68%", defaultY: "26%", depth: 42 },
+    { text: "📊 8.0_CGPA", color: "bg-white", border: "border-[#121316]", defaultX: "5%", defaultY: "18%", depth: 28 },
+    { text: "🚀 FASTAPI", color: "bg-[#3448C5] text-white", border: "border-[#121316]", defaultX: "88%", defaultY: "78%", depth: 38 },
+    { text: "🔍 YOLOv8", color: "bg-[#16A34A] text-white", border: "border-[#121316]", defaultX: "4%", defaultY: "75%", depth: 22 },
+    { text: "✦ TENSORFLOW", color: "bg-[#FFF066]", border: "border-[#121316]", defaultX: "50%", defaultY: "5%", depth: 18 },
+  ];
 
   return (
-    <canvas 
-      ref={canvasRef} 
-      className="absolute inset-0 w-full h-full pointer-events-none z-0 opacity-80" 
+    <div 
+      ref={containerRef}
+      onMouseMove={handleMouseMove}
+      className="absolute inset-0 overflow-hidden pointer-events-auto select-none"
       aria-hidden="true"
-    />
+    >
+      {/* Dynamic Grid Background with cursor parallax shift */}
+      <div 
+        className="absolute inset-0 opacity-[0.07] bg-[linear-gradient(to_right,#121316_1px,transparent_1px),linear-gradient(to_bottom,#121316_1px,transparent_1px)] bg-[size:42px_42px]"
+        style={{
+          transform: `translate(${mousePos.x * 14}px, ${mousePos.y * 14}px)`,
+          transition: "transform 0.15s ease-out",
+        }}
+      />
+
+      {/* Floating Retro Neo-Brutalist Geometric Accent Blocks */}
+      <motion.div 
+        animate={{ 
+          rotate: [0, 90, 180, 270, 360],
+          y: [0, -12, 0, 12, 0]
+        }}
+        transition={{ repeat: Infinity, duration: 25, ease: "linear" }}
+        className="absolute top-12 right-[18%] w-16 h-16 border-4 border-[#121316] bg-[#FFE033] brutal-shadow pointer-events-none opacity-30 hidden lg:block"
+      />
+
+      <motion.div 
+        animate={{ 
+          rotate: [0, -180, -360],
+          x: [0, 15, 0, -15, 0]
+        }}
+        transition={{ repeat: Infinity, duration: 18, ease: "linear" }}
+        className="absolute bottom-20 left-[14%] w-12 h-12 rounded-full border-4 border-[#121316] bg-[#FF5C35] brutal-shadow pointer-events-none opacity-25 hidden lg:block"
+      />
+
+      {/* Retro Brutalist Plus '+' Cross & Symbol Points */}
+      <div className="absolute top-8 left-[30%] text-[#121316] font-mono-code text-2xl font-black opacity-25 select-none">+</div>
+      <div className="absolute top-36 right-[35%] text-[#3448C5] font-mono-code text-3xl font-black opacity-30 select-none">+</div>
+      <div className="absolute bottom-24 right-[8%] text-[#FF5C35] font-mono-code text-2xl font-black opacity-25 select-none">✦</div>
+      <div className="absolute bottom-32 left-[40%] text-[#121316] font-mono-code text-xl font-black opacity-20 select-none">▲</div>
+
+      {/* Draggable & Mouse-Reactive Tech Stickers */}
+      {badges.map((b, i) => (
+        <motion.div
+          key={i}
+          drag
+          dragConstraints={containerRef}
+          whileHover={{ scale: 1.15, rotate: 0, zIndex: 30 }}
+          whileTap={{ scale: 0.95, cursor: "grabbing" }}
+          style={{
+            left: b.defaultX,
+            top: b.defaultY,
+          }}
+          animate={{
+            x: mousePos.x * b.depth,
+            y: mousePos.y * b.depth,
+          }}
+          transition={{ type: "spring", stiffness: 100, damping: 15 }}
+          className={`absolute cursor-grab z-10 px-3.5 py-1.5 border-2 ${b.border} ${b.color} font-mono-code text-xs font-black brutal-shadow-sm transition-shadow hover:brutal-shadow uppercase hidden sm:flex items-center gap-1.5`}
+        >
+          <span>{b.text}</span>
+          <span className="text-[10px] opacity-60">⠿</span>
+        </motion.div>
+      ))}
+
+      {/* Floating Interactive Status Pill */}
+      <div 
+        className="absolute bottom-4 right-6 hidden md:flex items-center gap-2 bg-white border-2 border-[#121316] px-3 py-1 font-mono-code text-[11px] font-bold text-[#121316] brutal-shadow-sm opacity-80 hover:opacity-100 transition-opacity"
+      >
+        <span className="w-2 h-2 rounded-full bg-[#16A34A] animate-ping" />
+        <span>INTERACTIVE_CANVAS: DRAG_BADGES_ANYWHERE</span>
+      </div>
+    </div>
   );
 }
 
